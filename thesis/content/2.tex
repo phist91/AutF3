@@ -1,0 +1,322 @@
+%!TEX root = ../AutF3.tex
+% -- Author: Phil Steinhorst, p.st@wwu.de
+\chapter{Untergruppen mit endlichem Index}
+\label{cha:subgroups_finite_index}
+	Ziel dieses Kapitels ist zu zeigen, dass eine endlich erzeugte Gruppe genau dann die Kazhdan-Eigeschaft $\prT$ hat, wenn dies für jede ihrer Untergruppen mit endlichem Index der Fall ist. Dafür werden wir zum einen die Eigenschaft $\prFH$ über Gruppenwirkungen auf affinen Hilberträumen einführen und zum anderen Wirkungen von Untergruppen mit endlichem Index betrachten. Wir geben zunächst eine Definition des Untergruppenindex an und zeigen, dass Untergruppen mit endlichem Index stets einen Normalteiler mit endlichem Index enthalten.
+
+\begin{definition}[Index]
+	Sei $G$ eine Gruppe und $U \leq G$ eine Untergruppe. Der \textbf{Index} von $U$ in $G$ ist gegeben durch
+	\[
+	\gind{G : U} := \#G \diagup U.
+	\]
+	Im Fall $\gind{G:U} \le \infty$ sprechen wir von einer \textbf{Untergruppe mit endlichem Index} und schreiben dafür kurz $U \subfi G$.
+\end{definition}
+	
+\begin{beispiel}
+	\mbox{} \\[-1cm]
+	\begin{itemize}
+		\item Klarerweise ist der Index jeder Untergruppe einer endlichen Gruppe endlich.
+		\item Jede nichttriviale Untergruppe von $\ZZ$ hat endlichen Index: Die Untergruppen von $\ZZ$ sind gerade von der Gestalt $m\ZZ$ mit $m \in \ZZ$, und es ist $\gind{\ZZ : m\ZZ} = m$.
+		\item Der Index von $\ZZ$ in $(\RR,+)$ ist nicht endlich, da die eingeschränkte Nebenklassenprojektion $[0,1) \rightarrow \RR \diagup \ZZ$ bijektiv ist.
+	\end{itemize}
+\end{beispiel}
+
+\begin{proposition}
+\label{prop_subfi_NT}
+	Sei $G$ eine Gruppe.
+	\begin{enumerate}[(i)]
+		\item Sind $U_1, U_2 \subfi G$, so gilt $\gind{G:U_1 \cap U_2} \leq \gind{G:U_1} \cdot \gind{G:U_2}$.
+		\item Ist $U \subfi G$, so existiert ein Normalteiler $N \subfi G$ mit $N \leq U \leq G$.
+	\end{enumerate}
+\end{proposition}
+\newpage
+\begin{beweis}
+	\mbox{} \\[-1cm]
+	\begin{enumerate}[(i)]
+		\item Setze $U := U_1 \cap U_2$ und definiere
+		\begin{equation}
+		\begin{aligned}
+			\varphi \colon G \diagup U &\longrightarrow G \diagup U_1 \times G \diagup U_2 \\
+			gU &\longmapsto (gU_1,gU_2)
+		\end{aligned}
+		\end{equation}
+	Die Abbildung ist wohldefiniert: Angenommen, es gilt $\varphi(gU) \neq \varphi(hU)$ für $gU = hU$, dann ist ohne Einschränkung $gU_1 \neq hU_1$ und, da verschiedene Nebenklassen disjunkt sind, $g \notin hU_1$. Dann ist aber $g \neq hu$ für alle $u \in U \subseteq U_1$, also $gU \neq hU$, was ein Widerspruch ist. \\
+	Wir zeigen nun, dass $\varphi$ injektiv ist. Da $\varphi$ offensichtlich ein Homomorphismus ist, genügt es, $\ker(\varphi) = \{U\}$ zu zeigen. Sei also $gU \in \ker(\varphi)$, dann ist $(gU_1,gU_2) = (U_1,U_2)$. Also ist $g \in U_1 \cap U_2 = U$ und $gU = U$. Damit folgt:
+	\[
+		\gind{G : U_1 \cap U_2} = \#G \diagup U \leq \#(G \diagup U_1 \times G \diagup U_2) = \#G \diagup U_1 \cdot \#G \diagup U_2 = \gind{G : U_1} \cdot \gind{G : U_2}.
+	\]
+	\item Setze
+	\[
+		N := \bigcap_{g \in G} g U g^{-1}
+	\]
+	Offensichtlich ist $N \leq U$ und $N$ ein Normalteiler von $G$. Es bleibt zu zeigen, dass $N$ endlichen Index in $G$ hat. Dafür zeigen wir, dass nur endlich viele zu $U$ konjugierte Untergruppen in $G$ existieren: \\
+	Für festes $g \in G$ betrachte $U' := gUg^{-1}$. Ist $\{g_1,\dots,g_n\} \subseteq G$ ein vollständiges Repräsentantensystem von $U$ in $G$, so gilt $gU = g_i U$ für ein $i \in \{1, \dots, n\}$ und damit $gUg^{-1} = g_i U g^{-1}$. Sei $ghg^{-1} \in U'$, dann existieren $x \in U$ mit $gh = g_i x$ und $y \in U$ mit $gx^{-1} = g_iy^{-1}$. Dann ist
+	\[
+		ghg^{-1} = g_i xg^{-1} = g_i(gx^{-1})^{-1} = g_i(g_i y^{-1})^{-1} = g_i y g_i^{-1} \in g_i U g_i^{-1}.
+	\]
+	Somit ist $U' \subseteq g_i U g_i^{-1}$. Analog zeigt man die andere Teilmengeninklusion. Also stimmt jede zu $U$ konjugierte Untergruppe $gUg^{-1}$ überein mit eine der Gruppen $g_i U g_i^{-1}$, $1 \leq i \leq n$. Insbesondere ist der Schnitt, der $N$ definiert, endlich und die Behauptung folgt mit (i). \qedhere
+	\end{enumerate}
+\end{beweis}
+
+\section{Affine isometrische Wirkungen}	
+\label{sec:aff_isom_wirkung}	
+	Im Folgenden führen wir den Begriff des affinen Hilbertraumes ein und betrachten isometrische Wirkungen von Gruppen auf diesen. Wir werden zunächst sehen, dass die Fixpunktmenge einer solchen Wirkung wiederum einen affinen Hilbertraum liefert. Im Anschluss konstruieren wir aus einer gegebenen Wirkung einer Untergruppe $U \subfi G$ mit endlichem Index eine weitere isometrische Wirkung von $G$ auf dem affinen Hilbertraum der so genannten äquivarianten Abbildungen, welche für einen Beweis im nächsten Abschnitt wesentlich ist. Die folgenden Definitionen und die Konstruktion der induzierten Wirkung sind entnommen aus \cite[S.~74\psq, 91\psq]{BekkaHarpeValette}.
+	
+\begin{definition}[transitive und reguläre Gruppenwirkung]
+	Sei $\Phi\colon G \rightarrow \Sym(X)$ eine Gruppenwirkung. $\Phi$ heißt \textbf{transitiv}, wenn für alle $x,y \in X$ ein $g \in G$ existiert, sodass $\Phi(g)(x) = y$. Ist dieses $g \in G$ eindeutig bestimmt, so heißt $\Phi$ \textbf{regulär}.
+\end{definition}
+
+\begin{beispiel}
+	\mbox{} \\[-1.4cm]
+	\begin{itemize}
+		\item Jede Gruppe $G$ wirkt durch Linkstranslation $\Phi(g)(x) := gx$ auf sich selbst. Diese Wirkung ist regulär: Für je zwei $x,y \in G$ ist das eindeutige $g \in G$ mit $\Phi(g)(x) = y$ gegeben durch $g = yx^{-1}$.
+		\item Jede Gruppe $G$ wirkt auch durch Konjugation $\Phi(g)(x) := gxg^{-1}$ auf sich selbst; diese Wirkung ist jedoch im Allgemeinen nicht regulär, wie man im Falle einer abelschen Gruppe $G$ erkennt.
+	\end{itemize}
+\end{beispiel}
+
+Eine Gruppenwirkung $\Phi\colon G \rightarrow \Sym(X)$ ist genau dann transitiv, wenn für jedes $x \in X$ der Orbit $x^G := \Phi(G)(x) = \{\Phi(g)(x) : g \in G\}$ mit $X$ übereinstimmt. In diesem Fall ist $\Phi$ genau dann regulär, wenn für jedes $x \in X$ der Stabilisator $G_x := \{g \in G : \Phi(g)(x) = x\}$ die triviale Gruppe ist. Ganz allgemein gilt, dass der für jedes $x \in X$ der Quotient $G \diagup G_x$ gleichmächtig zum Orbit $x^G$ ist, wie folgendes Lemma zeigt:
+
+\begin{lemma}[Bahnensatz]
+\label{bahnensatz}
+	Sei $\Phi\colon G \rightarrow \Sym(X)$ eine Gruppenwirkung. Dann ist für jedes $x \in X$ die Abbildung
+	\begin{equation}
+	\begin{aligned}
+		\pi\colon G \diagup G_x &\longrightarrow x^G \\
+		g\cdot G_x &\longmapsto \Phi(g)(x)
+	\end{aligned}
+	\end{equation}
+	wohldefiniert und bijektiv.
+\end{lemma}
+
+\begin{beweis}
+	\mbox{} \\[-.85cm]
+	\begin{description}
+		\item[wohldefiniert:] Sei $gG_x = hG_x$, dann existiert ein $z \in G_x$ mit $hz \in gG_x$. Somit ist $g^{-1}h \in G_x$ und es folgt $\pi(gG_x) = \pi(gg^{-1}hG_x) = \pi(hG_x)$.
+		\item[surjektiv:] Klar, da $x^G = \{\Phi(g)(x) : g \in G\}$ nach Defintion.
+		\item[injektiv:] Seien $gG_x, hG_x \in G \diagup G_x$ mit $\pi(gG_x) = \pi(hG_x)$. Dann gilt
+		\[ \pi(g^{-1}hG_x) = \Phi(g^{-1}h)(x) = \Phi(g^{-1})(\Phi(h)(x)) = \Phi(g^{-1})(\Phi(g)(x)) = x = \pi(G_x), \]
+		also ist $g^{-1}h \in G_x$. Damit ist $gG_x = hG_x$. \qedhere
+	\end{description}
+\end{beweis}
+
+\begin{definition}[Affiner Hilbertraum]
+	Sei $X$ eine Menge und $(\HH,\sprod{\cdot,\cdot})$ ein Hilbertraum. $X$ heißt (reeller) \textbf{affiner Hilbertraum}, wenn $(\HH,+)$ regulär auf $X$ wirkt vermöge
+	\begin{equation}
+	\begin{aligned}
+		\Phi\colon \HH &\longrightarrow \Sym(X) \\
+		\xi &\longmapsto T_\xi.
+	\end{aligned}
+	\end{equation}
+	$T_\xi$ heißt Translation. Für ein $x \in X$ schreiben wir $x + \xi$ für $T_\xi(x)$ und entsprechend $y-x$ für das eindeutige $\xi \in \HH$ mit $x + \xi = T_\xi(x) = y$. 
+\end{definition}
+
+\begin{bemerkung}
+	Offensichtlich ist jeder Hilbertraum als affiner Hilbertraum auffassbar, da $(\HH,+)$ auf $\HH$ wirkt vermöge $T_\xi(x) := x + \xi$ für $x \in \HH$.
+\end{bemerkung}
+
+\begin{definition}[affine isometrische Wirkung]
+	Eine \textbf{affine isometrische Wirkung} einer endlich erzeugten Gruppe $G$ auf einem affinen Hilbertraum $\HH$ ist ein Homomorphismus $\Phi\colon G \rightarrow \Isom(\HH)$. Wir bezeichnen mit
+	\[
+		\Fix(\Phi) := \{x \in \HH : \Phi(g)(x) = x \text{ für alle } g \in G\}
+	\]
+	die Menge der globalen Fixpunkte von $\Phi$.
+\end{definition}
+
+\begin{proposition}
+\label{prop_Fix_HR}
+	Sei $\Phi\colon G \rightarrow \Isom(\HH)$ eine affine isometrische Wirkung, die einen globalen Fixpunkt besitzt. Dann ist $\Fix(\Phi)$ ein affiner Hilbertraum und insbesondere $\cat$.
+\end{proposition}
+
+\begin{beweis}
+	Sei $x \in \Fix(\Phi)$ globaler Fixpunkt von $\Phi$. Nach Korollar~\ref{kor:fix_affin} ist $\Fix(\Phi(g))$ für jedes $g \in G$ ein affiner Unterraum von $\HH$, da $x$ ein Fixpunkt der Isometrie $\Phi(g)$ ist. Offensichtlich gilt $\Fix(\Phi) = \bigcap_{g \in G} \Fix(\Phi(g))$ und da ein nichtleerer Schnitt von affinen Unterräumen wieder ein affiner Unterraum ist und Fixpunktmengen abgeschlossen sind, folgt die Behauptung.
+\end{beweis}
+\newpage
+Als weiteres Hilfsmittel betrachten wir nun Abbildungen von einer endlich erzeugten Gruppe in einen affinen Hilbertraum, die eine bestimmte Identität erfüllen. Im Folgenden sei dazu $G$ eine endlich erzeugte Gruppe, $U \subfi G$, $(\HH,\sprod{\cdot,\cdot})$ ein reeller Hilbertraum und $\Phi$ eine affine isometrische Wirkung von $U$ auf $\HH$.
+
+\begin{definition}[äquivariante Abbildung]
+	Eine Abbildung $\varphi \colon G \rightarrow \HH$ heißt \textbf{äquivariant}, wenn für alle $g \in G$ und $h \in U$ gilt:
+	\begin{equation}
+		\varphi(gh) = \Phi(h^{-1})(\varphi(g))
+	\end{equation}
+	Wir setzen $\MM := \{ \varphi \colon G \rightarrow \HH : \varphi \text{ ist äquivariant}\} \subseteq \HH^G$.
+\end{definition}
+
+\begin{bemerkung}
+	Der Begriff der äquivarianten Abbildung findet man in der Literatur oft auch in anderen Zusammenhängen, wobei dann zwischen Links- und Rechtswirkungen von Gruppen unterschieden wird. Im Fall einer Linkswirkung einer Gruppe $G$ auf zwei Mengen $X$ und $Y$ heißt eine Abbildung $\varphi\colon X \rightarrow Y$ äquivariant, falls für alle $g \in G$ und $x \in X$ gilt:
+		\[ \varphi(g.x) = g.\varphi(x), \]
+	das heißt die Abbildung kommutiert mit der Gruppenwirkung. Im Fall einer Rechtswirkung heißt die Abbildung $\varphi$ äquivariant, falls die Identität
+		\[ \varphi(x.g) = \varphi(x).g^{-1} \]
+	erfüllt ist. Die oben genannte Definition einer äquivarianten Abbildung erhält man dadurch, dass man die Multiplikation $g \cdot h$ als Rechtswirkung der Untergruppe $U$ auf die Gruppe $G$ auffasst.	
+\end{bemerkung}
+
+Als nächstes werden wir sehen, dass $\MM$ ein affiner Hilbertraum ist und die affine isometrische Wirkung auf der Untergruppe $U$ eine affine isometrische Wirkung auf $\MM$ induziert. Da $U \subfi G$, ist $G$ die disjunkte Vereinigung von endlich vielen Nebenklassen $g_1U, \dots g_nU$, wobei $n = \gind{G:U}$. Jedes $g \in G$ ist somit auf eindeutige Art und Weise schreibbar als $g = g_i h_g$ für ein $i \in \{1, \dots, n\}$ und ein $h_g \in U$. Wir stellen zunächst fest, dass $\MM$ nicht leer ist, indem wir ein $\xi \in \HH$ fixieren und folgende Abbildung betrachten:
+	\begin{equation}
+	\begin{aligned}
+	\varphi_\xi\colon G &\longrightarrow \HH \\
+	g_i h_g &\longmapsto \Phi(h_g^{-1})(\xi)
+	\end{aligned}
+	\end{equation}	
+
+In der Tat ist diese Abbildung äquivariant, denn für beliebiges $g \in G$ und $h \in U$ gilt:
+\begin{equation}
+\begin{aligned}
+	\varphi_\xi(gh) &= \varphi_\xi(g_i h_g h) = \Phi(h^{-1}h_g^{-1})(\xi) = \Phi(h^{-1}) (\Phi(h_g^{-1})(\xi)) \\
+		&= \Phi(h^{-1})(\varphi_\xi(g_i h_g)) = \Phi(h^{-1})(\varphi_\xi(g))
+\end{aligned}
+\end{equation}
+Somit ist $\varphi_\xi \in \MM$.
+
+\begin{proposition}
+\label{prop_MM0}
+	$\MM$ ist ein affiner Untervektorraum von $\HH^G$.
+\end{proposition}
+
+\begin{beweis}
+	Wir zeigen, dass $\MM^0 := \MM - \varphi_\xi$ ein Untervektorraum von $\HH^G$ ist:
+	Seien $\alpha - \varphi_\xi, \beta - \varphi_\xi \in \MM^0$ und $\lambda_1,\lambda_2 \in \RR$. Zu zeigen ist $\lambda_1 (\alpha - \varphi_\xi) + \lambda_2 (\beta - \varphi_\xi) = \lambda_1 \alpha + \lambda_2 \beta + (1-\lambda_1-\lambda_2) \varphi_\xi - \varphi_\xi \in \MM^0$. Für $g \in G$ und $h \in U$ beliebig ist: 
+	\begin{align}
+		&(\lambda_1\alpha + \lambda_2 \beta + (1-\lambda_1-\lambda_2) \varphi_\xi)(gh) \\
+		=\; &\lambda_1 \cdot \Phi(h^{-1})(\alpha(g)) + \lambda_2 \cdot \Phi(h^{-1})(\beta(g)) + (1-\lambda_1-\lambda_2) \cdot \Phi(h^{-1})(\varphi_\xi(g)) \\
+	\intertext{Da $\Phi(h^{-1}) \in \Isom(\HH)$ nach Satz~\ref{satz_mazur-ulam} affin ist, folgt mit Definition~\ref{def_affine_abb} (iv):}
+		=\; &\Phi(h^{-1})(\lambda_1 \alpha(g) + \lambda_2\beta(g) + (1-\lambda_1-\lambda_2) \varphi_\xi(g)) \\
+		=\; &\Phi(h^{-1})(\lambda_1\alpha + \lambda_2\beta + (1-\lambda_1-\lambda_2)\varphi_\xi)(g)
+	\end{align}
+	Somit ist $\lambda_1 \alpha + \lambda_2 \beta + (1-\lambda_1-\lambda_2) \varphi_\xi$ äquivariant und damit $\lambda_1 (\alpha-\varphi_\xi) + \lambda_2(\beta - \varphi_\xi) \in \MM^0$.\qedhere
+\end{beweis}
+
+Für zwei feste Abbildungen $\alpha, \beta \in \MM$ betrachte nun die Abbildung
+\begin{equation}
+\begin{aligned}
+\kappa := \kappa_{\alpha,\beta} \colon G &\longrightarrow \RR \\
+g &\longmapsto \sprod{\alpha(g) - \varphi_\xi(g),\beta(g) - \varphi_\xi(g)}.
+\end{aligned}
+\end{equation}
+
+Diese Abbildung ist $U$-rechtsinvariant, das heißt für alle $g \in G, h \in U$ gilt $\kappa(gh) = \kappa(g)$, wie aus der Isometrieeigenschaft von $\Phi$ folgt (vgl. Bemerkung nach Definition~\ref{def_isometrie}):
+
+\begin{equation}
+\begin{aligned}
+	\kappa(gh) &= \sprod{\alpha(gh) - \varphi_\xi(gh),\beta(gh) - \varphi_\xi(gh)} \\
+		&= \sprod{\Phi(h^{-1})(\alpha(g)) - \Phi(h^{-1})(\varphi_\xi(g)), \Phi(h^{-1})(\beta(g)) - \Phi(h^{-1})(\varphi_\xi(g))} \\
+		&= \sprod{\alpha(g) - \varphi_\xi(g), \beta(g) - \varphi_\xi(g)} = \kappa(g)
+\end{aligned}
+\end{equation}
+\newpage
+Somit folgt, dass die Abbildung
+\begin{equation}
+\begin{aligned}
+	\tilde{\kappa} := \tilde{\kappa}_{\alpha,\beta} \colon G \diagup U &\longrightarrow \RR \\
+			g \cdot U &\longmapsto \kappa(g)
+\end{aligned}
+\end{equation}
+repräsentantenunabhängig und wohldefiniert ist. Dadurch können wir den reellen Vektorraum $\MM^0 = \{\varphi - \varphi_\xi : \varphi \in \MM\}$ aus dem Beweis zu Prop.~\ref{prop_MM0} mit dem Skalarprodukt
+\[
+	\sprod{\alpha - \varphi_\xi, \beta-\varphi_\xi} := \sum\limits_{g \in G \diagup U} \tilde{\kappa}_{\alpha,\beta} (g), \quad \alpha,\beta \in \MM
+\]
+versehen, welches wohldefiniert ist, da $U$ endlichen Index in $G$ hat. Auf diese Weise wird $\MM^0$ zu einem Hilbertraum und $\MM$ zu einem affinen Hilbertraum: Die Vollständigkeit von $M^0$ folgt dadurch, dass das Skalarprodukt definiert ist als endliche Summe von Skalarprodukten auf $\HH$.
+
+\begin{definition}[induzierte affine isometrische Wirkung]
+	Die Wirkung $\Ind := \Ind_U^G\Phi \colon G \longrightarrow \Isom(\MM)$
+	definiert durch
+	\begin{equation}
+	\begin{aligned}
+		\Ind_U^G\Phi(g)\colon \MM &\longrightarrow \MM \\
+		\varphi &\longmapsto \benbrace*{x \mapsto \varphi(g^{-1}x)}
+	\end{aligned}
+	\end{equation}
+	für $g \in G$ heißt die von $\Phi$ \textbf{induzierte affine isometrische Wirkung} auf $\MM$.
+\end{definition}
+
+Dass $\Ind$ tatsächlich eine Gruppenwirkung ist, ist leicht zu erkennen: Für beliebige $g,h \in G$ und $\varphi \in \MM$ gilt
+\[ 
+	(\Ind(g) \circ \Ind(h))(\varphi) = \Ind(g)(x \mapsto \varphi(h^{-1}x))
+	= (x \mapsto \varphi(h^{-1}g^{-1}x))
+	= \Ind(gh)(\varphi),
+\]
+also ist $\Ind$ ein Homomorphismus. Ferner ist $\Ind$ isometrisch, denn für alle $\varphi, \psi \in \MM$ und $g \in G$ gilt
+\[
+	\Norm{\Ind(g)(\varphi) - \Ind(g)(\psi)}^2 = \sum\limits_{x \in G \diagup U} \Norm{\varphi(g^{-1}x) - \psi(g^{-1}x)}^2
+	= \sum\limits_{x \in G \diagup U} \Norm{\varphi(x) - \psi(x)}^2
+	= \Norm{\varphi - \psi}^2.
+\]
+
+\section{Eigenschaft (FH)}
+\label{sec:property_FH}
+	Wir führen nun, wie bereits angekündigt, die Eigenschaft $\prFH$ für endlich erzeugte Gruppen ein und beweisen, dass eine endlich erzeugte Gruppe genau dann diese Eigenschaft besitzt, wenn das für jede ihrer Untergruppen mit endlichem Index der Fall ist. Für die eine Implikation nutzen wir das Resultat aus dem letzten Abschnitt, dass die Fixpunktmenge einer affinen isometrischen Wirkung ein Hilbertraum ist, sowie den Fixpunktsatz von \textsc{Bruhat} und \textsc{Tits}. Die andere Implikation folgt unter Zuhilfenahme der induzierten affinen isometrischen Wirkung: Besitzt diese einen globalen Fixpunkt, liefert sie uns auch einen globalen Fixpunkt der Untergruppenwirkung.
+
+\begin{definition}[Eigenschaft $\prFH$]
+	Eine endlich erzeugte Gruppe $G$ hat \textbf{Eigenschaft (FH)}, wenn jede affine isometrische Wirkung von $G$ auf einen reellen Hilbertraum einen globalen Fixpunkt besitzt.
+\end{definition}
+
+\begin{satz}
+\label{satz:olga_1.2.9}
+	Sei $G$ eine endlich erzeugte Gruppe und $U \subfi G$ eine Untergruppe mit endlichem Index und Eigenschaft $\prFH$. Dann besitzt auch $G$ die Eigenschaft $\prFH$.
+\end{satz}
+
+\begin{beweis}[{vgl. \cite[Kor. 1.2.9]{Olga}}]
+	Sei $\Phi\colon G \rightarrow \Isom(\HH)$ eine beliebige affine isometrische Wirkung auf einen Hilbertraum $\HH$. Wir zeigen, dass $\Phi$ einen globalen Fixpunkt besitzt.
+	
+	Nach Proposition~\ref{prop_subfi_NT} existiert ein Normalteiler $N \NT G$ mit endlichem Index in $G$ und $N \leq U \leq G$. Da $U$ die Eigenschaft $\prFH$ hat, besitzt $\Phi\big|_U\colon U \rightarrow \Isom(\HH)$ einen globalen Fixpunkt $\xi \in \HH$, das heißt $\Phi(g)(\xi) = \xi$ für alle $g \in U$. Wegen $N \leq U$ ist $\xi$ auch globaler Fixpunkt von $\Phi\big|_N\colon N \rightarrow \Isom(\HH)$, das heißt die Menge $\Fix(\Phi\big|_N)$ ist nichtleer und nach Proposition~\ref{prop_Fix_HR} ein affiner Hilbertraum.
+	
+	Betrachte nun die Wirkung
+	\begin{equation}
+	\begin{aligned}
+		\Psi\colon G \diagup N &\longrightarrow \Isom(\Fix(\Phi\big|_N)) \\
+		gN &\longmapsto \Phi(g).
+	\end{aligned}
+	\end{equation}
+	$\Psi$ ist repräsentantenunabhängig, denn: Gilt $gN = hN$, so ist $h = gn$ für ein $n \in N$. Damit ist
+	\[
+		\Psi(hN)(x) = \Phi(gn)(x) = \Phi(g)(\Underbrace{\Phi(n)(x)}{=x}) = \Phi(g)(x) = \Psi(gN)(x) 
+	\]
+	für alle Fixpunkte $x \in \Fix(\Phi\big|_N)$. Ferner ist $\Psi$ wohldefiniert, denn für alle $x \in \Fix(\Phi\big|_N)$ ist $\Psi(gN)(x) = \Phi(g)(x) =: y$ wieder ein Fixpunkt von $\Phi\big|_N$. Genauer: Da $N$ Normalteiler in $G$, existiert für alle $n \in N$ und $g \in G$ ein $n' \in N$, sodass $ng = gn'$. Somit folgt:
+	\[
+		\Phi(n)(y) = \Phi(n)(\Phi(g)(x)) = \Phi(g)(\Underbrace{\Phi(n')(x)}{=x}) = \Phi(g)(x) = y,
+	\]
+	also ist $\Psi(gN) \in \Isom(\Fix(\Phi\big|_N))$.
+	\newpage
+	Da $G \diagup N$ endlich ist, ist jeder Orbit von $\Psi$ endlich und beschränkt. Nach Satz~\ref{satz_bruhat_tits} besitzt $\Psi$ somit einen globalen Fixpunkt $\overline{x} \in \Fix(\Phi\big|_N) \subseteq \HH$ mit $\Psi(gN)(\overline{x}) = \overline{x}$ für alle $gN \in G \diagup N$. Dann ist $\overline{x}$ auch ein globaler Fixpunkt von $\Phi$, denn es gilt
+	\[
+		\Phi(g)(\overline{x}) = \Psi(gN)(\overline{x}) = \overline{x}
+	\]
+	für alle $g \in G$. Da $\Phi$ beliebig war, folgt die Behauptung.	
+\end{beweis}
+
+\begin{satz}[{\cite[Prop. 2.5.7]{BekkaHarpeValette}}]
+\label{satz:bhv_2.5.7}
+	Sei $G$ eine endlich erzeugte Gruppe mit Eigenschaft $\prFH$ und $U \subfi G$ eine Untergruppe mit endlichem Index. Dann besitzt $U$ ebenfalls die Eigenschaft $\prFH$.
+\end{satz}
+
+\begin{beweis}
+	Sei $\Phi\colon U \rightarrow \Isom(\HH)$ eine beliebige affine isometrische Wirkung auf einen reellen Hilbertraum $\HH$. Da $G$ die Eigenschaft $\prFH$ besitzt, hat die induzierte affine isometrische Wirkung $\Ind := \Ind_U^G\Phi$ von $G$ einen globalen Fixpunkt $\pi \in \MM$, das heißt es gilt $\Ind(g)(\pi) = \pi$ für alle $g \in G$. Somit folgt für alle $g,x \in G$
+	\[
+		\Ind(g)(\pi)(x) = \pi(g^{-1}x) = \pi(x),
+	\]
+	also insbesondere $\Ind(h)(\pi)(e_G) = \pi(e_G)$ für alle $h \in U$. Da $\pi \in \MM$ äquivariant ist, gilt
+	\[
+		\pi(e_G) = \pi(h^{-1}) = \Phi(h)(\pi(e_G))
+	\]
+	für alle $h \in U$. Somit besitzt $\Phi$ den globalen Fixpunkt $\pi(e_G)$. Da $\Phi$ beliebig war, folgt die Behauptung.
+\end{beweis}
+
+Der folgende Satz liefert uns die Äquivalenz der beiden Eigenschaften $\prT$ und $\prFH$. In seiner ursprünglichen Form ist dieser für lokalkompakte und $\sigma$-kompakte Gruppen formuliert. Für die von uns betrachteten endlich erzeugten Gruppen sind diese beiden Eigenschaften aber gegeben.
+
+\begin{satz}[{\textsc{Delorme}-\textsc{Guichardet}, \cite[Theorem 2.12.4]{BekkaHarpeValette}}]
+\label{satz:delorme-guichardet}
+	Eine endlich erzeugte Gruppe besitzt genau dann Kazhdans Eigenschaft $\prT$, wenn sie die Eigenschaft $\prFH$ besitzt.
+\end{satz}
+
+Der Beweis dieses Satzes benötigt weitere Erkenntnisse über affine isometrische Wirkungen und Darstellungen auf Hilberträumen und kann im Rahmen dieser Arbeit nicht geführt werden. Zusammen mit den Sätzen \ref{satz:olga_1.2.9} und \ref{satz:bhv_2.5.7} erhalten wir unser Hauptergebnis dieses Kapitels:
+\newpage
+\begin{theo}
+\label{thm:kap2}
+	Sei $G$ eine endlich erzeugte Gruppe. Folgende Aussagen sind äquivalent:
+	\begin{enumerate}[(i)]
+		\item $G$ besitzt Eigenschaft $\prFH$.
+		\item $G$ besitzt Kazhdans Eigenschaft $\prT$.
+		\item $G$ besitzt eine Untergruppe mit endlichem Index und Eigenschaft $\prT$ bzw. Eigenschaft $\prFH$.
+		\item Jede Untergruppe von $G$ mit endlichem Index besitzt Kazhdans Eigenschaft $\prT$ bzw. Eigenschaft $\prFH$.
+	\end{enumerate}
+\end{theo}
+
+\cleardoubleoddemptypage

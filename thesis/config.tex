@@ -1,0 +1,128 @@
+%!TEX root = AutF3.tex
+% -- Author: Phil Steinhorst, p.st@wwu.de
+\documentclass[a4paper,index=totoc,toc=bibliography,fontsize=11,DIV=12,headinclude,BCOR=12mm,cleardoublepage=empty]{scrreprt}
+
+\usepackage[usenames,x11names]{xcolor}
+\usepackage[final]{graphicx}
+\usepackage{lmodern}
+\usepackage{mathtools,amssymb,amsthm}
+\mathtoolsset{showonlyrefs}
+\usepackage[libertine,cmintegrals,bigdelims,varbb]{newtxmath}
+\usepackage[no-math]{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage[spelling=new,babelshorthands=true,latesthyphen]{german}
+\shorthandoff{"}
+\defaultfontfeatures{Mapping=tex-text, Ligatures={Required,Common,Contextual}}
+\setmainfont{LinLibertine}[Extension=.otf,UprightFont=*_R,BoldFont=*_RZ,ItalicFont=*_RI,BoldItalicFont=*_RZI]
+\setsansfont{LinBiolinum}[Scale=MatchUppercase, Extension=.otf, UprightFont=*_R, BoldFont=*_RB, ItalicFont=*_RI,BoldItalicFont=*_RBO]
+\setmonofont{Inconsolatazi4}[Scale=MatchUppercase,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,StylisticSet=1]
+\usepackage[final]{microtype}
+\mathtoolsset{centercolon}
+\usepackage{mathdots}
+
+\usepackage{tikz-cd}
+\tikzset{
+  every picture/.append style={
+    execute at begin picture={\shorthandoff{"}},
+    execute at end picture={\shorthandon{"}}
+  }
+}
+\usetikzlibrary{quotes,babel}
+\usetikzlibrary{patterns}
+\tikzset{
+	schraffiert/.style={pattern=north west lines,pattern color=#1},
+	schraffiert/.default=black
+}
+
+\usepackage[
+	backend=biber,
+	sortlocale=auto,
+	natbib,
+	hyperref,
+	style=alphabetic
+	]%
+{biblatex}
+\setlength{\bibitemsep}{1.5em}  
+\setlength{\bibhang}{2em}    
+\addbibresource{literature.bib}
+
+\usepackage[hidelinks, pdfpagelabels, bookmarksopen=true, bookmarksnumbered=true, linkcolor=black, urlcolor=SkyBlue2, plainpages=false,pagebackref, citecolor=black, hypertexnames=true, pdfauthor={Phil Steinhorst}, pdfborderstyle={/S/U}, linkbordercolor=SkyBlue2, colorlinks=false,backref=false]{hyperref}
+\hypersetup{final}
+
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate,description]{font=\sffamily\bfseries}
+\usepackage[german=quotes]{csquotes}
+
+\usepackage[textsize=small]{todonotes}
+\setlength{\parindent}{0em} 
+
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot 
+\setheadsepline{1pt} 
+\automark[chapter]{chapter}
+\rohead{\rightmark} 
+\lehead{\rightmark} 
+\ofoot[\pagemark]{\pagemark} 
+
+\usepackage{thmtools}
+
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NAME \ \NUMBER \NOTE,
+	headpunct={\\},
+	postheadspace=1ex,
+	spaceabove=15pt,spacebelow=10pt]%
+{mainstyle}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NAME \ \NOTE,
+	headpunct={\\},
+	postheadspace=1ex,
+	spaceabove=15pt,spacebelow=10pt]%
+{miscstyle}
+\declaretheoremstyle[%
+	headfont=\bfseries\scshape,
+	bodyfont=\normalfont,
+	headpunct=:,
+	postheadspace=1ex,
+	spacebelow=12pt,spaceabove=2pt,
+	qed=\qedsymbol]%
+{beweise}
+\declaretheoremstyle[%
+	headfont=\sffamily\bfseries,
+	notefont=\normalfont\sffamily,
+	bodyfont=\normalfont,
+	headformat=\NAME,
+	headpunct={\\},
+	postheadspace=1ex,
+	spaceabove=15pt,spacebelow=10pt]%
+{prestyle}
+
+\declaretheorem[name=Definition,parent=chapter,style=mainstyle]{definition}
+\declaretheorem[name=Satz,sharenumber=definition,style=mainstyle]{satz}
+\declaretheorem[name=Korollar,sharenumber=definition,style=mainstyle]{korollar}
+\declaretheorem[name=Lemma,sharenumber=definition,style=mainstyle]{lemma}
+\declaretheorem[name=Proposition,sharenumber=definition,style=mainstyle]{proposition}
+\declaretheorem[name=Beweis,numbered=no,style=beweise]{beweis}
+\declaretheorem[name=Beispiel,numbered=no,style=miscstyle]{beispiel}
+\declaretheorem[name=Bemerkung,numbered=no,style=miscstyle]{bemerkung}
+\declaretheorem[name=Theorem,numbered=yes,style=mainstyle]{theo}
+\declaretheorem[name=Definition,numbered=no,style=prestyle]{defpre}
+
+\renewcommand\thetheo{\Alph{theo}}
+
+\input{MathCmds.tex}
+
+\usepackage{setspace}
+\usepackage{hyphenat}
+\usepackage{bm}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{5.5ex plus 1ex minus .2ex}{2.2ex plus .2ex}
+\usepackage{faktor}
+
+\raggedbottom

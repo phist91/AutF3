@@ -1,0 +1,271 @@
+%!TEX root = ../AutF3.tex
+% -- Author: Phil Steinhorst, p.st@wwu.de
+\chapter{Freie Gruppen und ihre Automorphismen}
+\label{cha:free_groups}
+	In diesem Kapitel werden wir zeigen, dass die Automorphismengruppe $\Aut(F_3)$ nicht Kazhdans Eigenschaft $\prT$ besitzt. Dafür geben wir zunächst eine Einführung in freie Gruppen und erwähnen elementare Eigenschaften ihrer Untergruppen und Automorphismen. Im Anschluss konstruieren wir eine Untergruppe von $\Aut(F_3)$. Unter Zuhilfenahme der Erkenntnisse aus den vorigen Kapiteln zeigen wir schließlich das Hauptresultat dieser Arbeit.
+	
+\section{Grundlegende Definitionen und Eigenschaften}
+\begin{definition}[freie Gruppe, {\cite[Def. 3.1]{Bogopolski}}]
+	Sei $F$ eine Gruppe und $B \subseteq F$. $F$ heißt \textbf{frei} über $B$, wenn jedes $g \in F$ genau eine Darstellung der Form
+	\begin{equation}
+		g = b_1^{r_1} b_2^{r_2} \cdots b_n^{r_n} \tag*{($*$)}
+	\end{equation}
+	besitzt mit $n \in \NN_0, b_i \in B, r_i \in \ZZ \setminus \setzero$ und $b_i \neq b_{i+1}$. Eine solche Darstellung heißt \textbf{reduziert} über $B$ und $B$ heißt \textbf{Basis} oder \textbf{freies Erzeugendensystem} von $F$.
+\end{definition}
+
+\begin{bemerkung}
+	Die reduzierte Darstellung des neutralen Elements von $F$ ist das leere Produkt, das heißt es ist $n = 0$ in $(*)$.
+\end{bemerkung}
+
+Es ist ein bekanntes Resultat, dass alle Basen einer freien Gruppe dieselbe Kardinalität aufweisen (vgl. \cite[Theorem 3.8]{Bogopolski}). Ist $F$ frei über $B$, so bezeichnen wir mit $\rk(F) := \#B$ den \textbf{Rang} von $F$. Ferner sind zwei freie Gruppen genau dann isomorph, wenn ihre Ränge übereinstimmen (vgl. \cite[Kor. 3.10]{Bogopolski}). Daher ist es sinnvoll, für $n \in \NN$ von \emph{der} freien Gruppe $F_n$ vom Rang $n$ zu sprechen.
+
+\begin{beispiel}
+	Die Gruppe $(\ZZ,+)$ ist frei über $B = \{1\}$, da jedes $g \in \ZZ \setminus \setzero$ die eindeutige reduzierte Darstellung $g = r \cdot 1$ mit $r \in \ZZ \setminus \setzero$ besitzt. Also ist $F_1 \simeq \ZZ$.	
+\end{beispiel}
+\newpage
+Gruppenhomomorphismen auf freien Gruppen lassen sich -- analog zu linearen Abbildungen auf Vektorräumen -- durch die Bilder der Basiselemente bereits eindeutig beschreiben, wie das folgende Lemma zeigt:
+
+\begin{lemma}
+\label{lemma_anz_hom}
+	Sei $F$ frei über $B$, $G$ eine weitere Gruppe und $\varphi \colon F \rightarrow G$ ein Gruppenhomomorphismus. Dann ist $\varphi$ durch das Bild von $B$ bereits eindeutig bestimmt.
+\end{lemma}
+
+\begin{beweis}
+	Seien $\varphi, \psi\colon F \rightarrow G$ Homomorphismen mit $\varphi \big|_B = \psi \big|_B$ sowie $x \in F$ beliebig. Ist $x = b_1^{r_1} \cdots b_n^{r_n}$ die reduzierte Darstellung von $x$, so gilt
+	\[
+		\varphi(x) = \varphi(b_1)^{r_1} \cdots \varphi(b_n)^{r_n} = \psi(b_1)^{r_1} \cdots \psi(b_n)^{r_n} = \psi(x).
+	\]
+	Also ist $\varphi = \psi$.
+\end{beweis}
+
+Ein wichtiges Hilfsmittel für die Arbeit mit freien Gruppen ist der folgende Satz von \textsc{Nielsen} und \textsc{Schreier}. Dieser besagt nicht nur, dass Untergruppen freier Gruppen ebenfalls frei sind, sondern liefert ebenfalls eine Formel, mit der man den Rang der Untergruppe bestimmen kann.
+
+\begin{satz}[\textsc{Nielsen-Schreier}, {\cite[Prop. 3.9]{LyndonSchupp}}]
+\label{prop_rangformel}
+	Ist $F_n$ die freie Gruppe vom Rang $n \in \NN$ und $U \leq F_n$ eine Untergruppe, dann ist $U$ ebenfalls frei. Ist $U$ zusätzlich von endlichem Index, so ist $U$ vom Rang $\gind{F_n:U} \cdot (n - 1)+1$.
+\end{satz}
+
+Aus diesem Satz folgt allgemein, dass Untergruppen mit endlichen Index von endlich erzeugten Gruppen ebenfalls endlich erzeugt sind:
+
+\begin{korollar}
+\label{endl_erz_untergruppe}
+	Sei $G$ eine endlich erzeugte Gruppe und $U \subfi G$. Dann ist auch $U$ endlich erzeugt.
+\end{korollar}
+
+\begin{beweis}
+	Sei $G := \sprod{g_1,\dots,g_n}$ mit $n \in \NN$ und $U \subfi G$. Betrachte die freie Gruppe $F_n = \sprod{b_1,\dots,b_n}$. Offensichtlich ist die Abbildung $f\colon F_n \twoheadrightarrow G$ mit $f(b_i) = g_i$ ein Epimorphismus, somit existiert ein Isomorphismus $\varphi \colon F_n \diagup \ker(f) \rightarrow G$. Daher existiert eine Untergruppe $H \leq F_n$ mit $H \diagup \ker(f) = \varphi^{-1}(U)$, das heißt $H \diagup \ker(f)$ ist isomorph zu $U$. Also existiert ein Epimorphismus $\eta \colon H \twoheadrightarrow U$. Ferner ist $H$ von endlichem Index in $F_n$: Analog zum zweiten Isomorphiesatz existiert eine Bijektion \\[-.5cm]
+	\[
+		G\diagup U \simeq \faktor{(F_n \diagup \ker(f))}{(H \diagup \ker(f))} \longrightarrow F_n \diagup H,
+	\]
+	daher gilt $\gind{F_n : H} = \gind{G : U}$.
+	Da $H$ nach Satz~\ref{prop_rangformel} somit frei und endlich erzeugt ist, folgt $H = \sprod{h_1, \dots, h_k}$ für ein $k \in \NN$ und damit $U = \sprod{\eta(h_1),\dots,\eta(h_k)}$. \qedhere
+\end{beweis}
+
+Wir legen nun Augenmerk auf die Automorphismen von freien Gruppen mit endlichem Rang. Diese sind bijektive Homomorphismen einer freien Gruppe $F_n$ auf sich und bilden eine Gruppe, die wir mit $\Aut(F_n)$ bezeichnen. Das Produkt zweier Automorphismen $\alpha, \beta \in \Aut(F_n)$ ist definiert durch $\alpha\beta := \beta \circ \alpha$. Für den Kommutator nutzen wir die Notation $[\alpha,\beta] := \alpha^{-1}\beta^{-1}\alpha\beta$.
+
+Ein Automorphismus $\alpha \in \Aut(F_n)$ heißt \textbf{innerer Automorphismus}, falls es ein $z \in F_n$ gibt, sodass $\alpha$ von der Gestalt $\alpha(x) = z^{-1} x z$ ist für alle $x \in F_n$. Offensichtlich bilden die inneren Automorphismen eine Untergruppe von $\Aut(F_n)$, die wir mit $\Inn(F_n)$ bezeichnen.
+
+\begin{definition}
+	Sei $F_n$ frei über der Basis $\{x_1, \dots, x_n\}$. Wir definieren die Abbildung $\Psi_n\colon \Aut(F_n) \rightarrow \GL_n(\ZZ)$ wie folgt: Für einen Automorphismus $f \in \Aut(F_n)$ sei $\Psi_n(f) := (a_{ij})_{i,j}$ diejenige Matrix, bei der $a_{ij}$ die Summe der Exponenten von $x_j$ in $f(x_i)$ ist.
+\end{definition}
+
+Nach \cite[Theorem 1.7]{Bogopolski} ist $\Psi_n$ ein Epimorphismus, der in der Literatur häufig als kanonischer Homomorphismus $\Aut(F_n) \rightarrow \GL_n(\ZZ)$ bezeichnet wird. Offenbar wird jeder innere Automorphismus von $F_n$ durch $\Psi_n$ auf die Einheitsmatrix $\id \in \GL_n(\ZZ)$ abgebildet, das heißt es ist $\Inn(F_n) \subseteq \ker(\Psi_n)$.
+
+\begin{beispiel}
+	Sei $F_3 := \sprod{a,b,c}$. Für $f \in \Aut(F_3)$ gegeben durch
+	\[
+		f(a) = a^{-1} \qquad f(b) = ba \qquad f(c) = ca^2
+	\]
+	gilt
+	\[
+		\Psi_3(f) = \begin{pmatrix}
+			-1 & 0 & 0 \\
+			1  & 1 & 0 \\
+			2  & 0 & 1
+		\end{pmatrix}.
+	\]
+\end{beispiel}
+
+\section{Eine Untergruppe von Aut(F\textsubscript{3}) mit endlichem Index}
+Im Folgenden betrachten wir die freie Gruppe $F_3$ und fixieren $\{a,b,c\}$ als Basis von $F_3$. Unser Ziel ist nun, eine Untergruppe von $\Aut(F_3)$ zu konstruieren, von der wir zeigen können, dass sie nicht die von \textsc{Serre} formulierte Eigenschaft $\prFA$ hat. Daraus folgt unmittelbar mit den Resultaten aus den vorigen beiden Kapiteln, dass $\Aut(F_3)$ nicht die Eigenschaft $\prT$ besitzen \linebreak \newpage
+kann. Die folgende Konstruktion richtet sich im Wesentlichen nach \cite[\hspace{0cm}2]{BogopolskiVikentiev} und stammt aus einem Beweis von \textsc{Grunewald} und \textsc{Lubotzky}.
+
+Wir bezeichnen die zweielementige Gruppe $(\ZZ \diagup 2\ZZ,+)$ kurz mit $\ZZ_2$. Nach Lemma~\ref{lemma_anz_hom} existieren genau $7$ nichttriviale (und damit surjektive) Homomorphismen $f_1,\dots,f_7\colon F_3 \rightarrow \ZZ_2$. Da jeder Normalteiler der Kern eines Gruppenhomomorphismus und jede Untergruppe mit Index $2$ ein Normalteiler ist, folgt mit dem Homomorphiesatz für Gruppen, dass genau $7$ Untergruppen $U_1 = \ker(f_1), \dots, U_7 = \ker(f_7)$ von $F_3$ mit Index $2$ existieren:
+
+\[
+	\begin{tikzcd}
+		F_3	\arrow[two heads]{rr}{f_i} \arrow{rd} & & \ZZ_2 \\
+		& F_3 \diagup U_i \arrow{ur}[swap]{\simeq}
+	\end{tikzcd}
+\]
+
+Mit Proposition~\ref{prop_rangformel} folgt, dass diese den Rang $5$ haben, das heißt $U_i \simeq F_5$ für alle $1 \leq i \leq 7$. Wir betrachten nun eine dieser Untergruppen genauer: Die Untergruppe $U_1 := \sprod{a,b,c^2,c^{-1}ac,c^{-1}bc}$ von $F_3$ ist der Kern des Homomorphismus $f_1 \colon F_3 \rightarrow \ZZ_2$ mit $f_1(a)=f_1(b)=0$ und $f_1(c)=1$, denn $\ker(f_1)$ besteht aus allen Wörtern über $a,b,c$, in denen $c$ insgesamt mit geradem Exponenten vorkommt, und genau diese Wörter lassen sich mit der angegebenen Basis von $U_1$ erzeugen.
+
+Im Folgenden nutzen wir die Bezeichnung
+\[
+\St(U_1) = \sprod{f \in \Aut(F_3) : f(U_1) = U_1} \leq \Aut(F_3)
+\]
+für die Stabilisatorgruppe von $U_1$. Diese wird von allen Automorphismen von $F_3$ erzeugt, die sich zu einem Automorphismus auf $U_1$ einschränken lassen. Jedes Element von $\St(U_1)$ lässt sich also als Element von $\Aut(F_5)$ auffassen. Weiter bezeichnen wir mit $\tau_c \in \Inn(F_3)$ den inneren Automorphismus gegeben durch $x \mapsto c^{-1}xc$. Dieser lässt sich nicht einschränken zu einem inneren Automorphismus von $U_1$, da sonst $c \in U_1$ wäre. Für den Kommutator von $\tau_c$ und einer Abbildung aus $\St(U_1)$ ist dies jedoch möglich:
+
+\begin{proposition}
+\label{claim}
+	Für jedes $\varphi \in \St(U_1)$ ist $[\tau_c,\varphi] \big|_{U_1}$ ein innerer Automorphismus von $U_1$.
+\end{proposition}
+
+\begin{beweis}
+	Wir müssen zeigen, dass für jedes $\varphi \in \St(U_1)$ ein $\alpha \in U_1$ existiert, sodass $[\tau_c,\varphi] \big|_{U_1} (x) = \alpha^{-1} x \alpha$ für alle $x \in U_1$.
+	
+	Sei $\varphi \in \St(U_1)$ beliebig. Setze $\alpha := c^{-1} \cdot \varphi(c)$. Dann gilt für beliebiges $x \in U_1$:
+	\begin{equation}
+	\begin{aligned}
+		[\tau_c,\varphi]\big|_{U_1} (x) &= \varphi \circ \tau_c \circ \varphi^{-1} \circ \tau_c^{-1}(x)
+		= \varphi \circ \tau_c \circ \varphi^{-1} (cxc^{-1})
+		= \varphi(c^{-1} \varphi^{-1}(cxc^{-1}) c) \\
+		&= \varphi(c^{-1}) cxc^{-1} \varphi(c)
+		= (c^{-1} \varphi(c))^{-1} x (c^{-1} \varphi(c))
+		= \alpha^{-1} x \alpha
+	\end{aligned}
+	\end{equation}
+	Da $\varphi \in \St(U_1)$ und $c \notin U_1$, ist $\varphi(c) \notin U_1$. Also ist $c$ im Wort $\varphi(c)$ mit insgesamt ungeradem Exponenten und in $\alpha = c^{-1} \varphi(c)$ mit insgesamt geradem Exponenten enthalten. Somit ist $\alpha \in U_1$ und $[\tau_c,\varphi]\big|_{U_1} \in \Inn(U_1)$. \qedhere
+\end{beweis}
+
+Wir haben nun
+\[
+	\tau_c(a) = c^{-1}ac, \quad \tau_c(b) = c^{-1}bc, \quad \tau_c(c^2) = c^2, \quad \tau_c(c^{-1}ac) = (c^2)^{-1}ac^2, \quad \tau_c(c^{-1}bc) = (c^2)^{-1} bc^2
+\]
+und somit
+\[
+	\Psi_5(\tau_c) = \begin{pmatrix}
+	0 & 0 & 0 & 1 & 0 \\ 
+	0 & 0 & 0 & 0 & 1 \\ 
+	0 & 0 & 1 & 0 & 0 \\ 
+	1 & 0 & 0 & 0 & 0 \\ 
+	0 & 1 & 0 & 0 & 0
+	\end{pmatrix}. 
+\]
+
+Offensichtlich gilt $\Psi_5(\tau_c))^2 = \id$. Somit gilt $V_+ \cap V_- = \{0\}$ für die beiden Eigenräume $V_+ := \ker(\Psi_5(\tau_c) + \id)$ und $V_- := \ker(\Psi_5(\tau_c) - \id)$ von $\ZZ^5$. Eine Basis von $V_+$ ist gegeben durch \linebreak $\{b_1 := (1,0,0,-1,0)^T, b_2 := (0,1,0,0,-1)^T\}$.
+
+\begin{bemerkung}
+	Die Eigenwerttheorie aus der linearen Algebra lässt sich im Wesentlichen auf freie Moduln über kommutative Ringe übertragen. Somit ist es sinnvoll, die Untermoduln $V_+$ und $V_-$ als Eigenräume von $\Psi_5(\tau_c)$ zu bezeichnen, da $\ZZ^5$ ein freier $\ZZ$-Modul ist.
+\end{bemerkung}
+
+\begin{proposition}
+	$V_+$ ist ein $\Psi_5(\varphi)$-invarianter Untermodul für alle $\varphi \in \St(U_1)$.
+\end{proposition}
+
+\begin{beweis}
+	Seien $\varphi \in \St(U_1)$ und $v \in V_+$ beliebig. Dann gilt $\Psi_5(\tau_c)(v) = -v$.
+
+	Nach Proposition~\ref{claim} ist $[\tau_c,\varphi]\big|_{U_1} \in \ker(\Psi_5)$, somit gilt
+	\begin{equation}
+	\begin{aligned}
+		\Psi_5(\tau_c^{-1} \varphi^{-1} \tau_c \varphi) = \Psi_5(\varphi \tau_c)^{-1} \Psi_5(\tau_c \varphi) &= \id \\
+		\Leftrightarrow \quad \Psi_5(\tau_c \varphi) &= \Psi_5(\varphi \tau_c).
+	\end{aligned}
+	\end{equation}
+	
+	Damit folgt nun, dass $w := \Psi_5(\varphi)(v)$ wieder ein Element von $V_+$ ist:
+	\[
+		\Psi_5(\tau_c)(w) = \Psi_5(\tau_c \varphi)(v) = \Psi_5(\varphi \tau_c)(v) = \Psi_5(\varphi)(-v) = -\Psi_5(\varphi)(v) = -w \qedhere
+	\]
+\end{beweis}
+
+Somit lässt sich jedes $\Psi_5(\varphi) \in \GL_5(\ZZ)$ -- aufgefasst als $\ZZ$-lineare Abbildung -- einschränken zu einem Element aus $\GL(V_+) \simeq \GL_2(\ZZ)$, was uns einen Homomorphismus $\theta \colon \St(U_1) \rightarrow \GL_2(\ZZ)$ liefert. 
+
+\begin{proposition}
+	Der oben konstruierte Homomorphismus 
+	\begin{equation}
+	\begin{aligned}
+		\theta\colon \St(U_1) &\longrightarrow \GL(V_+) \simeq \GL_2(\ZZ) \\
+		\varphi &\longmapsto \Psi_5(\varphi)\big|_{V_+}
+	\end{aligned}
+	\end{equation}
+	ist surjektiv.
+\end{proposition}
+
+\begin{beweis}
+	Nach \cite[Theorem 23.1]{Zieschang} wird $\GL_2(\ZZ)$ erzeugt durch folgende Matrizen:
+	\[
+		A := \begin{pmatrix}
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix}, \qquad 
+		B := \begin{pmatrix}
+			0  & 1 \\
+			-1 & 1
+		\end{pmatrix}, \qquad 
+		C := \begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+		\end{pmatrix}
+	\]
+	Wir zeigen, dass diese im Bild von $\theta$ liegen: Betrachte $\varphi_A \in \Aut(F_3)$ gegeben durch
+	\[
+		\varphi_A(a) = b^{-1}, \quad \varphi_A(b) = a, \quad \varphi_A(c) = c.
+	\]
+	Wir haben
+	\[
+		\varphi_A(a) = b^{-1}, \quad \varphi_A(b) = a, \quad \varphi_A(c^2) = c^2, \quad \varphi_A(c^{-1}ac) = (c^{-1}bc)^{-1}, \quad \varphi(c^{-1}bc) = c^{-1}ac.
+	\]
+	und somit $\varphi_A \in \St(U_1)$. Weiter folgt
+	\[
+		\Psi_5(\varphi_A) = \begin{pmatrix}
+			0 & -1 & 0 & 0 & 0  \\
+			1 & 0  & 0 & 0 & 0  \\
+			0 & 0  & 1 & 0 & 0  \\
+			0 & 0  & 0 & 0 & -1 \\
+			0 & 0  & 0 & 1 & 0
+		\end{pmatrix}.
+	\]
+	Durch Nachrechnen zeigt man $\Psi_5(\varphi_A)(b_1) = b_2$ und $\Psi_5(\varphi_A)(b_2) = -b_1$, also ist $\theta(\varphi_A) = A$. Analog zeigt man $\theta(\varphi_B) = B$ und $\theta(\varphi_C) = C$ für $\varphi_B, \varphi_C \in \Aut(F_3), \St(U_1)$ gegeben durch
+	\[
+		\begin{array}{lllll}
+		\varphi_B(a) = b, & \varphi_B(b) = a^{-1}b,  & \varphi_B(c) = c \\ 
+		\varphi_C(a) = b, & \varphi_C(b) = a,  & \varphi_C(c) = c.
+		\end{array} 
+	\]
+\end{beweis}
+
+Abschließend wollen wir zeigen, dass die Gruppe $\St(U_1)$ nicht die Eigenschaft $\prFA$ besitzt, woraus letztlich das Hauptresultat dieser Arbeit folgt. Dazu zitieren wir zunächst eine von \textsc{Serre} selbst beobachtete äquivalente Charakterisierung der Eigenschaft $\prFA$ für endlich erzeugte Gruppen.
+
+\begin{satz}[{\cite[Theorem 15]{Serre}}]
+\label{satz_char_FA}
+	Eine endlich erzeugte Gruppe $G$ hat genau dann die Eigenschaft $\prFA$, wenn die folgenden zwei Bedingungen erfüllt sind:
+	\begin{enumerate}[(i)]
+		\item $G$ ist nicht isomorph zu einem nichttrivialen amalgamierten Produkt, das heißt $G \not\simeq A *_B C$ mit $B \neq A, C$.
+		\item $G$ besitzt keine Untergruppe $U$ mit $G \diagup U \simeq \ZZ$.
+	\end{enumerate}
+\end{satz}
+
+\begin{theo}
+\label{thm:kap4}
+	Für die Untergruppe $\St(U_1) \leq \Aut(F_3)$ gilt:
+	\begin{enumerate}[(i)]
+		\item $\St(U_1)$ hat endlichen Index in $\Aut(F_3)$ und ist endlich erzeugt.
+		\item $\St(U_1)$ besitzt nicht die Eigenschaft $\prFA$.
+	\end{enumerate}
+\end{theo}
+
+\begin{beweis}
+	\mbox{} \\[-.85cm]
+	\begin{enumerate}[(i)]
+		\item Die Gruppe $\Aut(F_3)$ wirkt transitiv auf die Menge der Untergruppen $\UU := \{U_1,\dots,U_7\}$ vermöge $\Phi(f)(U_i) := f(U_i)$. Diesbezüglich ist $\St(U_1)$ der Stabilisator von $U_1 \in \mathcal{U}$ und mit Lemma~\ref{bahnensatz} folgt $\gind{\Aut(F_3) : \St(U_1)} = \#\mathcal{U} = 7$. 
+		Nach \cite[Prop. 1.1.2]{Olga} ist $\Aut(F_3)$ und damit auch $\St(U_1) \subfi \Aut(F_3)$ endlich erzeugt, vgl. Korollar~\ref{endl_erz_untergruppe}. 
+		\item Wie oben gezeigt haben wir einen Epimorphismus $\theta \colon \St(U_1) \rightarrow \GL_2(\ZZ)$. Nach \cite[Theorem 23.1]{Zieschang} ist $\GL_2(\ZZ)$ isomorph zum amagalmierten Produkt $D_4 *_{D_2} D_6$. Somit folgt mit Satz~\ref{satz_char_FA}, dass $\GL_2(\ZZ)$ nicht die Eigenschaft $\prFA$ besitzt. Es existiert also ein simplizialer Baum $T$ und eine zelluläre Wirkung $\Phi\colon \GL_2(\ZZ) \rightarrow \Isom(T)$, die keinen globalen Fixpunkt hat, das heißt für alle $x \in T$ existiert ein $g \in \GL_2(\ZZ)$ mit $\Phi(g)(x) \neq x$. Wegen der Surjektivität von $\theta$ besitzt dann auch die zelluläre Wirkung $\Phi \circ \theta\colon \St(U_1) \rightarrow \Isom(T)$ keinen globalen Fixpunkt. Somit besitzt auch $\St(U_1)$ nicht die Eigenschaft $\prFA$. \qedhere
+	\end{enumerate}	
+\end{beweis}
+
+\begin{bemerkung}
+	Der Beweis zeigt ganz allgemein, dass eine Gruppe $G$ nicht die Eigenschaft $\prFA$ besitzt, wenn eine Gruppe $H$ ohne Eigenschaft $\prFA$ und ein Epimorphismus $G \twoheadrightarrow H$ existieren.
+\end{bemerkung}
+
+\begin{korollar}
+	$\Aut(F_3)$ besitzt nicht Kazhdans Eigenschaft $\prT$.
+\end{korollar}
+
+\begin{beweis}
+	Angenommen, $\Aut(F_3)$ besäße Kazhdans Eigenschaft $\prT$. Dann hat nach Theorem~\ref{thm:kap2} auch die Untergruppe $\St(U_1) \subfi \Aut(F_3)$ die Eigenschaft $\prT$. Nach Theorem~\ref{thm:kap3} besitzt $\St(U_1)$ dann auch die Eigenschaft $\prFC$ und insbesondere die Eigenschaft $\prFA$. Dies ist jedoch ein Widerspruch zu Theorem~\ref{thm:kap4}. \qedhere
+\end{beweis}
+
+\cleardoubleoddemptypage

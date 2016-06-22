@@ -1,0 +1,23 @@
+\begin{abstract}
+\chapter*{Vorwort}
+	In den 1960er-Jahren definierte David \textsc{Kazhdan} die Eigenschaft $\prT$ für topologische Gruppen:
+	
+	\begin{defpre}
+		Eine topologische Gruppe $G$ besitzt die Eigenschaft $\prT$, wenn eine kompakte Teilmenge $Q \subseteq G$ und ein $\varepsilon > 0$ existiert, sodass gilt: Ist $\pi$ eine stetige unitäre Darstellung von $G$ auf einen Hilbertraum $\HH$, die einen Vektor $\xi \in \HH$ mit $\Norm{\xi} = 1$ und $\sup_{q \in Q} \Norm{\pi(q)\xi - \xi} < \varepsilon$ besitzt, dann existiert ein Vektor $\eta \in \HH \setminus \setzero$ mit $\pi(g)\eta = \eta$ für alle $g \in G$. \cite[1]{BekkaHarpeValette}
+	\end{defpre}
+	
+	Ursprünglich wurde diese von \textsc{Kazhdan} als Hilfsmittel für die Arbeit mit Gittern verwendet. Gitter sind diskrete Untergruppen $\Gamma \subseteq G$ einer lokalkompakten Gruppe $G$, deren Quotient $G \diagup \Gamma$ ein $G$-invariantes Wahrscheinlichkeitsmaß besitzt. Mittlerweile hat sich die Eigenschaft $\prT$ zu einem bedeutenden Bestandteil vieler mathematischer Teilgebiete entwickelt, darunter die Gruppentheorie, die Differentialgeometrie, die Theorie der Operatoralgebren und die Algorithmentheorie. Eine große Menge an Anwendungen und Konsequenzen der Eigenschaft $\prT$ findet man in dem umfassenden Werk \cite{BekkaHarpeValette}.
+	
+	In dieser Arbeit möchten wir beweisen, dass die Automorphismengruppe der freien Gruppe vom Rang $3$ nicht zu denjenigen Gruppen gehört, die Kazhdans Eigenschaft $\prT$ innehaben. Bereits im Jahr 1989 konnte \textsc{McCool} zeigen, dass dies der Fall ist \cite{McCool}. Wir stellen im vierten Kapitel einen Beweis von \textsc{Grunewald} und \textsc{Lubotzky} vor, der einige Vorarbeit benötigt:
+		
+	Wir betrachten vorwiegend Gruppenwirkungen von endlich erzeugten Gruppen $G$ auf Mengen $X$, das heißt Homomorphismen $\Phi \colon G \rightarrow \Sym(X)$, wobei $\Sym(X)$ die Symmetriegruppe von $X$ bezeichnet. Im Falle von metrischen Räumen $(X,d)$ verlangen wir zusätzlich, dass die Gruppenwirkung isometrisch ist, das heißt $\Phi$ bildet hier in die Gruppe der surjektiven Isometrien $\Isom(X)$ von $X$ ab. Konkrete Beispiele für metrische Räume, die wir betrachten, sind affine Hilberträume in Kapitel 2 sowie $\cat$ kubische Komplexe in Kapitel 3. Wir werden sehen, dass Kazhdans Eigenschaft $\prT$ eng verbunden ist mit der Existenz globaler Fixpunkte von Gruppenwirkungen, genauer gesagt mit folgenden Fixpunkteigenschaften für eine endlich erzeugte Gruppe $G$:
+	\begin{itemize}
+		\item $G$ besitzt \textbf{Eigenschaft (FH)}, wenn jede affine isometrische Wirkung von $G$ auf einen reellen Hilbertraum einen globalen Fixpunkt besitzt.
+		\item $G$ besitzt \textbf{Eigenschaft (FC)}, wenn jede zelluläre Wirkung von $G$ auf einen vollständigen $\cat$ kubischen Komplex einen globalen Fixpunkt besitzt.
+		\item $G$ besitzt \textbf{Eigenschaft (FA)}, wenn jede zelluläre Wirkung von $G$ auf einen simplizialen Baum einen globalen Fixpunkt besitzt.
+	\end{itemize}
+	
+	Benötigte Kenntnisse und Begrifflichkeiten werden zu Beginn jedes Kapitels vorgestellt; zusätzlich liefert das erste Kapitel eine Einführung in $\cat$-Räume und Hilberträume. Zum Verständnis dieser Arbeit sind somit nur Grundkenntnisse über Gruppen notwendig, wie sie zum Beispiel in der Vorlesung \textit{Einführung in die Algebra} vermittelt werden.
+	
+	Wir nutzen im Laufe dieser Arbeit viele Resultate aus der Literatur, die ursprünglich für topologische Gruppen formuliert sind. Das sind Gruppen, die mit einer Topologie versehen sind, sodass die Gruppenverknüpfung und Inversenbildung stetig sind. Da wir vorwiegend endlich erzeugte Gruppen betrachten, sind die zitierten Sätze problemlos anwendbar, da wir bei endlich erzeugten Gruppen die diskrete Topologie zugrunde legen.
+\end{abstract}
