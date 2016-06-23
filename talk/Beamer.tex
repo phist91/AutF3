@@ -1,0 +1,738 @@
+%!TEX TS-program = xelatex
+% -- Author: Phil Steinhorst, p.st@wwu.de
+\newcommand{\verfasser}{Phil Steinhorst}
+\newcommand{\titel}{Kubische Komplexe, Kazhdans Eigenschaft $\prT$\\und Eigenschaft $\FSC$}								
+\newcommand{\shorttitel}{Kubische Komplexe, Eigenschaft $\prT$, Eigenschaft $\FSC$}
+\newcommand{\subtitel}{Seminar zur Gruppentheorie und Geometrie:\\ Kazhdan- und Haagerup-Eigenschaften von Gruppen}
+\newcommand{\datum}{07. Mai 2015}
+\newcommand{\authormail}{p.st@wwu.de}
+\documentclass[10pt,aspectratio=169]{beamer}
+\input{ConfBeamer.tex}	
+\date{07. Mai 2015}
+\begin{document}
+\begin{frame}[t]
+	\titlepage
+\end{frame}
+
+\begin{frame}{Inhalt}
+	\begin{itemize}
+		\item Kubische Komplexe: Definitionen, Eigenschaften und Beispiele \pause
+		\item Eigenschaft $\FSC$ \pause
+		\item Ein Resultat über Gruppenwirkungen auf bestimmte kubische Komplexe: \pause
+	\end{itemize}
+	\begin{block}{Theorem}
+		Sei $X$ ein vollständiger $\cat$ kubischer Komplex und $G$ eine endlich erzeugte Gruppe, die die Kazhdan-Eigenschaft $\prT$ erfüllt. Dann hat jede simpliziale Wirkung von $G$ auf $X$ einen globalen Fixpunkt.
+	\end{block}
+\end{frame}
+
+\begin{frame}[c]{}
+\begin{center}
+	{\Huge \selectfont \textbf{Kubische Komplexe}}
+\end{center}
+\end{frame}
+
+\begin{frame}{Kubische Komplexe}
+	\begin{block}{Würfel, Seite, Dimension}
+		\begin{itemize}
+			\item $n$-\textbf{Würfel:} $C = \begin{cases}
+				[0,1]^n \subseteq \RR^n, & n \geq 1 \\
+				\{0\} & n=0
+			\end{cases}$ \pause
+			\item \textbf{Seite:} $F = F_1 \times F_2 \times \dots \times F_n \subseteq C$ 
+				mit $F_i \in \{ \{0\}, \{1\}, [0,1]\}$. \pause
+			\item $d_C$: euklidische Metrik des $\RR^n$ auf $C$ \pause
+			\item \textbf{Dimension:} $\dim(C) := n$.
+		\end{itemize}
+	\end{block}	
+\end{frame}
+
+\begin{frame}[c]{Kubische Komplexe}
+	\centering
+	\begin{tikzpicture}[scale=2.5]
+		\draw [->,very thick] (0,0) -- (0,1.4) node[above] {$x_3$};
+		\draw [->,very thick] (0,0) -- (1.4,0) node[right] {$x_1$};
+		\draw [->,very thick] (0,0) -- (-.7,-.7) node[below] {$x_2$};
+	
+		\draw (-.5,-.5) -- (-.5,.5) -- (0,1) -- (0,0) -- (-.5,-.5) -- (.5,-.5) -- (1,0) -- (0,0);
+		\draw (.5,-.5) -- (.5,.5) -- (-.5,.5);
+		\draw (0,1) -- (1,1) -- (.5,.5);
+		\draw (1,1) -- (1,0);
+		\draw<1> (1.1,1.1) node[right]{$[0,1]^3$}; 
+		
+		\onslide<2->{
+			\draw[schraffiert=orange] (-.5,-.5) -- (-.5,.5) -- (0,1) -- (0,0) -- (-.5,-.5);
+			\draw [color=orange] (-.6,0) node[left] {$\{0\} \times [0,1]^2$};
+		}
+		
+		\onslide<3->{
+			\draw[schraffiert=red] (.5,-.5) -- (.5, .5) -- (1,1) -- (1,0) -- (.5,-.5);
+			\draw [color=red] (.7,-.4) node[right] {$\{1\} \times [0,1]^2$};
+		}
+		
+		\onslide<4->{
+			\draw[schraffiert=blue] (-.5,.5) -- (.5,.5) -- (1,1) -- (0,1) -- (-.5,.5);
+			\draw [color=blue] (.1,1.2) node[right] {$[0,1]^2 \times \{1\}$};
+		}
+		
+		\onslide<5->{
+			\draw[ultra thick, color=teal] (.5,.5) -- (1,1);
+			\draw [color=teal] (1.05,.9) node[right] {$\{1\} \times [0,1] \times \{1\}$};
+		}
+	\end{tikzpicture}
+	\begin{exampleblock}<6->{Bemerkung}
+		Der Schnitt zweier Seiten von $C$ ist entweder leer oder wieder eine Seite von $C$.
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}[t]{Kubische Komplexe}
+	\begin{block}{Klebung}
+		$C_1, C_2$: Würfel, $F_1 \subseteq C_1, F_2 \subseteq C_2$: Seiten \pause \\
+		Eine \textbf{Klebung} ist eine bijektive Isometrie $\varphi\colon F_1 \rightarrow F_2$. \pause
+	\end{block} \vspace{.5cm}
+	\centering
+	\begin{tikzpicture}[scale=2.5]
+		\draw (1,0) -- (0,0) -- (0,1) -- (1,1);
+		\draw [ultra thick] (1,0) -- (1,1);
+		\draw (0.2,-.15) node {$C_1$};
+		\draw (1,-.15) node {$F_1$};
+		
+		\draw (3,-.5) -- (4,-.5) -- (4,.5) -- (3,.5) -- (3.5,1) -- (4.5,1) -- (4.5,0) -- (4,-.5);
+		\draw (4,.5) -- (4.5,1);
+		\draw [ultra thick] (3,.5) -- (3,-.5);
+		\draw (3,-.65) node {$F_2$};
+		\draw (3.8,-.65) node {$C_2$};
+		
+		\onslide<4->{		
+		\draw (2.95,.16) -- (3.05,.16) node [pos=2.8] {$\varphi(x)$};
+		\draw (2.95,-.16) -- (3.05,-.16) node [pos=2.8] {$\varphi(y)$};	
+		
+		\draw (.95,0.33) -- (1.05,0.33) node[pos=-.8] {$y$};
+		\draw (.95,0.66) -- (1.05,0.66) node[pos=-.8] {$x$};
+		
+		\draw [->, rounded corners=12pt] (1.1,.66) -- (1.6,.66) -- (2.4,.16) -- (2.9,.16);
+		\draw [->, rounded corners=12pt] (1.1,.33) -- (1.6,.33) -- (2.4,-.16) -- (2.9,-.16); }
+		
+		\draw<5-> (2,-.7) node[align=center]{$d_{C_1}(x,y) = d_{C_2}(\varphi(x),\varphi(y))$};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Kubische Komplexe}
+	\begin{block}{Definition: Kubischer Komplex}
+		$\mathcal{C}$: Familie von Würfeln, $\mathcal{S}$: Familie von Klebungen von Würfeln in $\mathcal{C}$  \pause
+		mit folgenden Eigenschaften:
+		\begin{enumerate}[(i)]
+			\item Kein Würfel ist mit sich selbst verklebt.
+			\item Je zwei Würfel aus $\mathcal{C}$ sind höchstens einmal miteinander verklebt. \pause
+		\end{enumerate}
+		Äquivalenzrelation auf $\sqcup_{C \in \mathcal{C}} C$: \pause
+		\[ x \sim y :\Leftrightarrow \text{ es existiert ein } \varphi \in \mathcal{S} \text{ mit } x \in \dom(\varphi) \text{ und } \varphi(x) = y \pause \]
+	\end{block}
+	\centering
+	\begin{tikzpicture}[scale=2]
+		\draw (1,0) -- (0,0) -- (0,1) -- (1,1);
+		\draw [ultra thick] (1,0) -- (1,1);
+		
+		\draw (3,-.5) -- (4,-.5) -- (4,.5) -- (3,.5) -- (3.5,1) -- (4.5,1) -- (4.5,0) -- (4,-.5);
+		\draw (4,.5) -- (4.5,1);
+		\draw [ultra thick] (3,.5) -- (3,-.5);
+		
+		\draw (2.95,.16) -- (3.05,.16) node [pos=2.8] {$\varphi(x)$};
+		\draw (2.95,-.16) -- (3.05,-.16) node [pos=2.8] {$\varphi(y)$};	
+		
+		\draw (.95,0.33) -- (1.05,0.33) node[pos=-.8] {$y$};
+		\draw (.95,0.66) -- (1.05,0.66) node[pos=-.8] {$x$};
+		
+		\draw [->, rounded corners=12pt] (1.1,.66) -- (1.6,.66) -- (2.4,.16) -- (2.9,.16);
+		\draw [->, rounded corners=12pt] (1.1,.33) -- (1.6,.33) -- (2.4,-.16) -- (2.9,-.16);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Kubische Komplexe}
+	\begin{block}{Definition: Kubischer Komplex (Forts.)}
+		\textbf{Kubischer Komplex:} 
+		\[ X := \enbrace*{\bigsqcup_{C \in \mathcal{C}} C} \diagup \sim. \]
+	\end{block}
+	\centering
+	\begin{tikzpicture}[scale=2.5]
+		\draw (2,1) -- (0,1) -- (0,0) -- (1,0) -- (1,1) -- (1.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,0) -- (1,0);
+		\draw (2,0) -- (2.5,.5) -- (2.5,1.5);
+		\draw (1,-.15) node {$X$};
+		\draw (.95,.33) -- (1.05,.33) node[pos=2.7] {$[y]_\sim$};
+		\draw (.95,.66) -- (1.05,.66) node[pos=2.7] {$[x]_\sim$};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Beispiele für Kubische Komplexe}
+	\centering
+	\begin{tikzpicture}[scale=1.5]
+		\draw (0,0) -- (.5,.5) -- (1,0) -- (2,0) -- (2.5,-.5);
+		\draw (2,0) -- (2.5,.5);
+		\draw (0,1) -- (.5,.5) -- (1,1) -- (2,1);
+		\draw (1,1) -- (1,2);
+		\draw (0,0) node[fill,circle,inner sep=1pt]{};
+		\draw (.5,.5) node[fill,circle,inner sep=1pt]{};
+		\draw (0,1) node[fill,circle,inner sep=1pt]{};
+		\draw (1,1) node[fill,circle,inner sep=1pt]{};
+		\draw (1,2) node[fill,circle,inner sep=1pt]{};
+		\draw (2,1) node[fill,circle,inner sep=1pt]{};
+		\draw (1,0) node[fill,circle,inner sep=1pt]{};
+		\draw (2,0) node[fill,circle,inner sep=1pt]{};
+		\draw (2.5,-.5) node[fill,circle,inner sep=1pt]{};
+		\draw (2.5,.5) node[fill,circle,inner sep=1pt]{};
+	\end{tikzpicture} \pause \hspace{1cm}
+	\begin{tikzpicture}[scale=1.3]
+		\draw[->,very thick] (-.2,0) -- (2.3,0);
+		\draw (-.2,1) -- (2.3,1); 
+		\draw (-.2,2) -- (2.3,2); 
+		\draw (.3,2.5) -- (2.8,2.5);
+		
+		\draw[->,very thick] (0,-.2) -- (0,2.3);
+		\draw (1,-.2) -- (1,2.3);
+		\draw (2,-.2) -- (2,2.3);
+		\draw (2.5,.5) -- (2.5,2.8);
+		
+		\draw (-.1,1.9) -- (.5,2.5);
+		\draw (.9,1.9) -- (1.5,2.5);
+		\draw (1.9,1.9) -- (2.5,2.5);
+		\draw (1.9,.9) -- (2.5,1.5);
+		\draw (1.9,-.1) -- (2.5,.5);
+		
+		\draw (.5,2.5) -- (.5,2.8);
+		\draw (1.5,2.5) -- (1.5,2.8);
+		\draw (2.5,.5) -- (2.8,.5);
+		\draw (2.5,1.5) -- (2.8,1.5);
+		
+		\draw (0,0) -- (-.1,-.1);
+		\draw (1,0) -- (.9,-.1);
+		\draw (0,1) -- (-.1,.9);
+		\draw (1,1) -- (.9,.9);
+	\end{tikzpicture} \pause \hspace{1cm}
+	\begin{tikzpicture}[scale=1.3]
+		\draw (0,1) -- (3,1);
+		\draw (0,2) -- (3,2);
+		\draw (1,0) -- (1,3);
+		\draw (2,0) -- (2,3);
+		
+		\draw[color=green,very thick] (0,3) -- (3,3);
+		\draw[->,color=green,very thick] (0,3) -- (1.7,3);
+		\draw[->,color=green,very thick] (0,3) -- (1.53,3);
+		\draw[color=green,very thick] (0,0) -- (3,0);
+		\draw[->,color=green,very thick] (0,0) -- (1.7,0);
+		\draw[->,color=green,very thick] (0,0) -- (1.53,0);
+		
+		\draw[color=red,very thick] (0,3) -- (0,0);
+		\draw[->,color=red,very thick] (0,3) -- (0,1.47);
+		\draw[color=red,very thick] (3,3) -- (3,0);
+		\draw[->,color=red,very thick] (3,3) -- (3,1.47);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Zusammenhang}
+	\begin{block}{Weg}
+		$X$: kubischer Komplex, $x,y \in X$. \\
+		Ein \textbf{Weg} von $x$ nach $y$ in $X$ ist eine endliche Folge $\sigma = (x_0, \dots, x_m) \subseteq X$ mit $x_0 = x$ und $x_m = y$,\\ sodass gilt: \\ \pause Für alle $0 \leq i \leq m-1$ existiert ein Würfel $C_i$ von $X$ mit $x_i, x_{i+1} \in C_i$. \pause
+	\end{block}
+	\hspace*{1.5cm}
+	\begin{tikzpicture}[scale=1.8]
+		\draw (1,0) -- (1,1) -- (0,1) -- (0,0) -- (1,0) -- (1.5,.5) -- (1.5,1.5) -- (.5,1.5) -- (0,1);
+		\draw (1,1) -- (1.5,1.5);
+		
+		\draw (0,0) -- (-.5,-.5) -- (.5,-.5) -- (1,0);
+		\draw (1.5,.5) -- (2.5,.5) -- (2.5,1.5) -- (1.5,1.5);
+		\draw (2.5,1.5) -- (3.5,1.5) -- (3.5,.5) -- (2.5,.5);
+		\draw (3.5,.5) -- (3,0) -- (2,0) -- (2.5,.5);
+		\draw (2,0) -- (2,-1) -- (3,-1) -- (3,0);
+		\draw (3,-1) -- (3.5,-.5) -- (3.5,.5);
+		
+		\onslide<3-4>{
+			\draw [dashed, color=red] (-.3,-.4) node[fill,circle,inner sep=1.5pt]{} 
+			-- (.8,0) node[fill,circle,inner sep=1.5pt]{} 
+			-- (1.5,.8) node[fill,circle,inner sep=1.5pt]{} 
+			-- (2.5,.8) node[fill,circle,inner sep=1.5pt]{} 
+			-- (3,.5) node[fill,circle,inner sep=1.5pt]{} 
+			-- (2.8,-.8) node[fill,circle,inner sep=1.5pt]{};
+			
+			\draw[color=red] (-.3,-.4) node[anchor = south east]{$x_0$};
+			\draw[color=red] (.8,0) node[anchor = south east]{$x_1$};
+			\draw[color=red] (1.5,.8) node[anchor = south east]{$x_2$};
+			\draw[color=red] (2.5,.8) node[anchor = south east]{$x_3$};
+			\draw[color=red] (3,.5) node[anchor = south west]{$x_4$};
+			\draw[color=red] (2.8,-.8) node[anchor = east]{$x_5$};
+		}
+		
+		\onslide<3->{
+			\draw (0,-.5) node[below]{$A$};
+			\draw (0,1) node[left]{$B$};
+			\draw (2,1.5) node[below]{$C$};
+			\draw (3.5,1) node[right]{$D$};
+			\draw (3.5,-.5) node[right]{$E$};
+		}
+		
+		\draw<4> (5,1.3) node[below,align=left]{$x_0,x_1 \in A$ \\ $x_1,x_2 \in B$ \\ $x_2,x_3 \in C$ \\ $x_3,x_4 \in D$ \\ $x_4,x_5 \in E$ \\ $\rightarrow$ Weg von $x_0$ nach $x_5$};
+		
+		\onslide<5-6>{
+			\draw [dashed, color=red] (-.3,-.4) node[fill,circle,inner sep=1.5pt]{} 
+			-- (.8,0) node[fill,circle,inner sep=1.5pt]{} 
+			-- (1.5,.8) node[fill,circle,inner sep=1.5pt]{} 
+			-- (3,.5) node[fill,circle,inner sep=1.5pt]{} 
+			-- (2.8,-.8) node[fill,circle,inner sep=1.5pt]{};
+			
+			\draw[color=red] (-.3,-.4) node[anchor = south east]{$x_0$};
+			\draw[color=red] (.8,0) node[anchor = south east]{$x_1$};
+			\draw[color=red] (1.5,.8) node[anchor = south east]{$x_2$};
+			\draw[color=red] (3,.5) node[anchor = south west]{$x_3$};
+			\draw[color=red] (2.8,-.8) node[anchor = east]{$x_4$};
+		}
+		
+		\draw<6> (5,1.3) node[below,align=left]{$x_2 \in B,C$ \\ $x_3 \in D, E$ \\ $\rightarrow$ kein Weg!};
+		
+		\onslide<7-8>{
+		\draw [dashed, color=red] (-.3,-.4) node[fill,circle,inner sep=1.5pt]{} 
+			-- (.8,0) node[fill,circle,inner sep=1.5pt]{} 
+			-- (1.5,.6) node[fill,circle,inner sep=1.5pt]{} 
+			-- (2.5,.6) node[fill,circle,inner sep=1.5pt]{} 
+			-- (3.2,1.2) node[fill,circle,inner sep=1.5pt]{} 
+			-- (3,.5) node[fill,circle,inner sep=1.5pt]{} 
+			-- (2.8,-.8) node[fill,circle,inner sep=1.5pt]{};
+			
+			\draw[color=red] (-.3,-.4) node[anchor = south east]{$x_0$};
+			\draw[color=red] (.8,0) node[anchor = south east]{$x_1$};
+			\draw[color=red] (1.5,.6) node[anchor = south east]{$x_2$};
+			\draw[color=red] (2.5,.6) node[anchor = south east]{$x_3$};
+			\draw[color=red] (3.2,1.2) node[anchor = south east]{$x_4$};
+			\draw[color=red] (3,.5) node[anchor = west]{$x_5$};
+			\draw[color=red] (2.8,-.8) node[anchor = east]{$x_6$};
+		}
+		
+		\draw<8> (5,1.3) node[below,align=left]{$x_0,x_1 \in A$ \\ $x_1,x_2 \in B$ \\ $x_2,x_3 \in C$ \\ $x_3,x_4 \in D$ \\ $x_4,x_5 \in D$ \\ $x_5,x_6 \in E$ \\ $\rightarrow$ Weg von $x_0$ nach $x_6$};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Zusammenhang}
+	\centering
+	\begin{tikzpicture}[scale=1.5]
+		\draw (1,0) -- (1,1) -- (0,1) -- (0,0) -- (1,0) -- (1.5,.5) -- (1.5,1.5) -- (.5,1.5) -- (0,1);
+		\draw (1,1) -- (1.5,1.5);
+		
+		\draw (0,0) -- (-.5,-.5) -- (.5,-.5) -- (1,0);
+		\draw (1.5,.5) -- (2.5,.5) -- (2.5,1.5) -- (1.5,1.5);
+		\draw (2.5,1.5) -- (3.5,1.5) -- (3.5,.5) -- (2.5,.5);
+		\draw (3.5,.5) -- (3,0) -- (2,0) -- (2.5,.5);
+		\draw (2,0) -- (2,-1) -- (3,-1) -- (3,0);
+		\draw (3,-1) -- (3.5,-.5) -- (3.5,.5);
+		
+		\draw [dashed, color=red] (-.3,-.4) node[fill,circle,inner sep=1.5pt]{} 
+		-- (.8,0) node[fill,circle,inner sep=1.5pt]{} 
+		-- (1.5,.6) node[fill,circle,inner sep=1.5pt]{} 
+		-- (2.5,.6) node[fill,circle,inner sep=1.5pt]{} 
+		-- (3.2,1.2) node[fill,circle,inner sep=1.5pt]{} 
+		-- (3,.5) node[fill,circle,inner sep=1.5pt]{} 
+		-- (2.8,-.8) node[fill,circle,inner sep=1.5pt]{};
+		
+		\draw[color=red] (-.3,-.4) node[anchor = south east]{$x_0$};
+		\draw[color=red] (.8,0) node[anchor = south east]{$x_1$};
+		\draw[color=red] (1.5,.6) node[anchor = south east]{$x_2$};
+		\draw[color=red] (2.5,.6) node[anchor = south east]{$x_3$};
+		\draw[color=red] (3.2,1.2) node[anchor = south east]{$x_4$};
+		\draw[color=red] (3,.5) node[anchor = west]{$x_5$};
+		\draw[color=red] (2.8,-.8) node[anchor = east]{$x_6$};
+	\end{tikzpicture}
+	\begin{block}{Länge eines Weges}
+		$X$: kubischer Komplex, $\sigma = (x_0, \dots x_m)$: Weg in $X$ mit $x_i, x_{i+1} \in C_i$ \pause \\
+		Die \textbf{Länge} von $\sigma$ ist gegeben durch:
+		\[ \ell(\sigma) := \sum\limits_{i=0}^{m-1} d_{C_i} (x_i,x_{i+1})\]
+	\end{block}
+\end{frame}
+
+\begin{frame}[c]{Kubische Komplexe als metrische Räume}
+	\begin{block}{Länge eines Weges}
+		$X$: kubischer Komplex, $\sigma = (x_0, \dots x_m)$: Weg in $X$ mit $x_i, x_{i+1} \in C_i$ \\
+		Die \textbf{Länge} von $\sigma$ ist gegeben durch:
+		\[ \ell(\sigma) := \sum\limits_{i=0}^{m-1} d_{C_i} (x_i,x_{i+1})\]
+	\end{block}
+	\begin{block}{Längenmetrik}
+		$X$: \textbf{wegzusammenhängender} kubischer Komplex, d.h. für alle $x,y \in X$ existiert Weg von $x$ nach $y$. \pause \\
+		Definiere die \textbf{Längenmetrik} durch:
+		\begin{equation}
+		\begin{aligned}
+			d\colon X \times X &\longrightarrow \RR \\
+			(x,y) &\longmapsto \inf \{\ell(\sigma) : \sigma \text{ ist Weg von } x \text{ nach } y \text{ in } X\}
+		\end{aligned}
+		\end{equation}
+	\end{block}
+\end{frame}
+
+\begin{frame}[c]{Kubische Komplexe als metrische Räume}
+	\centering
+	\begin{tikzpicture}[scale=1.5]
+		\draw[fill,color=lightgray] (0,0) -- (1,0) -- (2,0) -- (2.5,0.5) -- (3.5,0.5) -- (3.5,1.5) -- (2.5,1.5) -- (1.5,1.5) -- (1,1) -- (0,1) -- (0,0);
+		\draw (0,0) -- (1,0) -- (2,0) -- (2.5,0.5) -- (3.5,0.5) -- (3.5,1.5) -- (2.5,1.5) -- (1.5,1.5) -- (1,1) -- (0,1) -- (0,0);
+		\draw (1,0) -- (1,1) -- (2,1) -- (2.5,1.5) -- (2.5,0.5);
+		\draw (2,0) -- (2,1);
+		\draw (1.5,0) node[below]{$X$};
+	\end{tikzpicture} \hspace{2cm}
+	\begin{tikzpicture}[scale=1.5]
+		\onslide<2->{
+			\draw (0,0) node[fill,circle,inner sep=1pt]{} -- (1,0) node[fill,circle,inner sep=1pt]{} -- (2,0) node[fill,circle,inner sep=1pt]{} -- (2.5,0.5) node[fill,circle,inner sep=1pt]{} -- (3.5,0.5) node[fill,circle,inner sep=1pt]{} -- (3.5,1.5) node[fill,circle,inner sep=1pt]{} -- (2.5,1.5) node[fill,circle,inner sep=1pt]{} -- (1.5,1.5) node[fill,circle,inner sep=1pt]{} -- (1,1) node[fill,circle,inner sep=1pt]{} -- (0,1) node[fill,circle,inner sep=1pt]{} -- (0,0) node[fill,circle,inner sep=1pt]{};
+			\draw (1,0) -- (1,1) -- (2,1) node[fill,circle,inner sep=1pt]{} -- (2.5,1.5) -- (2.5,0.5) -- (1.5,0.5) node[fill,circle,inner sep=1pt]{} -- (1,0);
+			\draw (2,0) -- (2,1) ;
+			\draw (1.5,0.5) -- (1.5,1.5);
+			\draw (1.5,0) node[below]{$X^{(1)}$};
+		}
+		
+		\onslide<4->{
+			\draw[color=red] (1,0) node[fill,circle,inner sep=1pt]{} -- (1,1) node[fill,circle,inner sep=1pt]{} -- (2,1) node[fill,circle,inner sep=1pt]{} -- (2.5,1.5) node[fill,circle,inner sep=1pt]{} -- (3.5,1.5) node[fill,circle,inner sep=1pt]{};
+			\draw (1,-.1) node[anchor=north east] {$x$};
+			\draw (3.6,1.5) node[right] {$y$};
+		}
+	\end{tikzpicture}
+	\begin{block}{simpliziale Metrik}<3->
+		Die Abbildung
+		\begin{equation}
+		\begin{aligned}
+			D\colon X^{(0)} \times X^{(0)} &\longrightarrow \RR \\
+			(x,y) &\longmapsto \inf \{\ell(\sigma) : \sigma \text{ ist Weg von } x \text{ nach } y \textcolor{red}{\text{ in } X^{(1)}}\}
+		\end{aligned}
+		\end{equation}
+		heißt \textbf{simpliziale Metrik} auf $X$. Es gilt $d(x,y) \leq D(x,y)$.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Hyperebenen in kubischen Komplexen}
+	\begin{block}{Mittelwürfel}
+		Sei $C := [0,1]^n$. Der $i$-te \textbf{Mittelwürfel}, $1 \leq i \leq n$, ist gegeben durch
+		\[
+			M_i := \penbrace*{x \in C : x_i = \frac{1}{2}}= [0,1]^{i-1} \times \penbrace*{\frac{1}{2}} \times [0,1]^{n-i}
+		\]
+	\end{block}
+	\centering
+	\begin{tikzpicture}[scale=2]
+		\onslide<2->{
+			\draw [->,very thick] (0,0) -- (0,1.4) node[above] {$x_3$};
+			\draw [->,very thick] (0,0) -- (1.4,0) node[right] {$x_1$};
+			\draw [->,very thick] (0,0) -- (-.7,-.7) node[below] {$x_2$};
+			
+			\draw (-.5,-.5) -- (-.5,.5) -- (0,1) -- (0,0) -- (-.5,-.5);
+			\draw (.5,-.5) -- (.5, .5) -- (1,1) -- (1,0) -- (.5,-.5);
+			\draw (-.5,.5) -- (.5,.5) -- (1,1) -- (0,1) -- (-.5,.5);
+			\draw (-.5,-.5) -- (.5,-.5);
+		}
+		
+		\onslide<3,6>{		
+			\draw [color=teal,schraffiert=teal] (0,-.5) -- (.5,0) -- (.5,1) -- (0,.5) -- (0,-.5);
+			\draw [color=teal] (0,-.5) node[below]{$M_1$};
+		}
+		
+		\onslide<4,6>{
+			\draw [color=red,schraffiert=red] (-.25,-.25) -- (.75,-.25) -- (.75,.75) -- (-.25,.75) -- (-.25,-.25);
+					\draw [color=red] (-.4,.85) node{$M_2$};
+		}
+		
+		\onslide<5,6>{
+			\draw [color=blue,schraffiert=blue] (-.5,0) -- (.5,0) -- (1,.5) -- (0,.5) -- (-.5,0);
+			\draw [color=blue] (1.0,.5) node[right]{$M_3$};
+		}
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Hyperebenen in kubischen Komplexen}
+	\begin{columns}[c]
+		\begin{column}{.4\textwidth}
+			\only<1-6>{
+			\begin{block}{quadratäquivalent}
+				$X$: kubischer Komplex. Betrachte die durch
+				\[
+					\begin{array}{rcl}
+						e \parallel e' & :\Leftrightarrow & e \text{ liegt gegenüber } e' \text{ in} \\
+						& & \text{einem } 2\text{-Würfel von } X
+					\end{array}
+				\]
+				erzeugte Äquivalenzrelation auf der Menge der Kanten ($1$-Würfel) von $X$. $e$ und $e'$ heißen \textbf{quadratäquivalent}, wenn gilt: $e \parallel e'$.
+			\end{block}
+			}
+			\only<7->{
+			\begin{block}{transversal}
+				Ein Mittelwürfel $M$ heißt \textbf{transversal} zu $[e]_{\parallel}$ (schreibe: $M \pitchfork [e]_{\parallel}$), wenn $M \cap X^{(1)}$ aus Mittelpunkten von Kanten in $[e]_{\parallel}$ besteht.
+			\end{block}
+			\begin{block}<12->{Hyperebene}
+				Die Vereinigung aller zu $[e]_\parallel$ transversalen Mittelwürfel heißt \textbf{Hyperebene} zu $e$.
+				\[ H(e) := \bigcup_{M \pitchfork [e]_\parallel} M\]
+			\end{block}
+			}
+		\end{column}
+		\begin{column}{.58\textwidth}
+			\centering
+			\begin{tikzpicture}[scale=2]
+				\draw<2-> (2,2) -- (1,2) -- (1,1) -- (2,1) -- (2,0) -- (1,0) -- (1,1) -- (0,1) -- (0,2) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+				\draw<3-> [color=red,very thick] (2,2) -- (2,1);
+				\draw<3-4> [color=red] (2,1) node[anchor=north west] {$e$};
+				\onslide<4->{
+					\draw [color=red,very thick] (1,1) -- (1,2);
+					\draw [color=red,very thick] (2.5,2.5) -- (2.5,1.5);
+				}
+				\onslide<5->{
+					\draw [color=red,very thick] (0,1) -- (0,2);
+					\draw [color=red,very thick] (3.5,2.5) -- (3.5,1.5);
+					\draw [dashed] (1,1) -- (1.5,1.5);
+					\draw [dashed] (1.5,1.5) -- (2.5,1.5);
+					\draw [color=red,ultra thick,dashed] (1.5,2.5) -- (1.5,1.5);
+					\draw [color=red] (2,1) node[anchor=north west] {$[e]_{\parallel}$};
+				}
+				\onslide<6>{
+					\draw [color=teal,very thick] (0,2) -- (1,2);
+					\draw [color=teal,very thick] (1,0) -- (1,1);
+					\draw [color=teal] (.5,2)  node[above] {$f_1$};
+					\draw [color=teal] (1,.5)  node[left] {$f_2$};
+					\draw [color=teal] (2.7,.7)  node[right,align=left] {$f_1,f_2 \not \parallel e$};
+				}
+				\draw<8-10> [color=blue] (2.7,.7) node[right] {$M \pitchfork [e]_\parallel$};
+				
+				\onslide<8>{
+					\draw [color=blue,very thick] (0,1.5) -- (1,1.5);
+					\draw [color=blue] (.5,1.5) node[below] {$M$};
+				}
+
+				\onslide<9>{
+					\draw [color=blue,schraffiert=blue,very thick] (1,1.5) -- (2,1.5) -- (2.5,2) -- (1.5,2) -- (1,1.5);
+					\draw [color=blue] (1,1.5) node[left] {$M$};
+				}
+				
+				\onslide<10>{
+					\draw [color=blue,very thick] (2.5,2) -- (3.5,2);
+					\draw [color=blue] (3,2) node[below] {$M$};
+				}
+				
+				\onslide<11>{
+					\draw [color=teal,very thick,schraffiert=teal] (1.25,1.25) -- (2.25,1.25) -- (2.25,2.25) -- (1.25,2.25) -- (1.25,1.25);
+					\draw [color=teal,very thick] (1,.5) -- (2,.5);
+					\draw [color=teal] (1.25,2.25) node[left,align=right] {$M_1$};
+					\draw [color=teal] (2,.5) node[right,align=left] {$M_2$};
+					\draw [color=teal] (2.7,.7) node[right] {$M_1, M_2 \not\pitchfork [e]_\parallel$};
+				}
+				
+				\onslide<13->{
+					\draw [color=blue,very thick] (0,1.5) -- (1,1.5);
+					\draw [color=blue,schraffiert=blue,very thick] (1,1.5) -- (2,1.5) -- (2.5,2) -- (1.5,2) -- (1,1.5);
+					\draw [color=blue,very thick] (2.5,2) -- (3.5,2);
+					\draw [color=blue] (3,2) node[below] {$H(e)$};
+				}
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Hyperebenen in kubischen Komplexen}
+	\begin{exampleblock}{Bemerkung}
+		Eine Hyperebene $H$ partitioniert einen vollständigen $\cat$ kubischen Komplex $X$ in die drei disjunkten Teilmengen $U^-, U^+$ und $H$. $U^-$ und $U^+$ heißen \textbf{Halbräume} von $X$.
+	\end{exampleblock}
+	\centering
+	\begin{tabular}{ccc}
+		\begin{tikzpicture}
+			\draw [color=purple,schraffiert=purple] (0,1) -- (.5,1) -- (.5,2) -- (0,2) -- (0,1);
+			\draw [color=teal,schraffiert=teal] (.5,1) -- (.5,2) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,0) -- (1,0) -- (1,1) -- (.5,1);
+			\draw [color=blue,ultra thick] (.5,1) -- (.5,2);
+			
+			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+			 			
+ 			\draw [color=teal] (3.55,2) node[right] {$U^+$};
+ 			\draw [color=purple] (.25,1) node[below] {$U^-$};
+ 			\draw [color=blue] (.5,2) node[above] {$H$};
+		\end{tikzpicture}
+	&
+		\begin{tikzpicture}
+			\draw [color=purple,schraffiert=purple] (1.5,0) -- (1,0) -- (1,1) -- (0,1) -- (0,2) -- (1,2) -- (1.5,2.5) -- (2,2.5) -- (1.5,2) -- (1.5,0);
+			\draw [color=teal,schraffiert=teal] (1.5,0) -- (1.5,2) -- (2,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,0) -- (1.5,0);
+			\draw [color=blue,ultra thick] (2,2.5) -- (1.5,2) -- (1.5,0);
+			
+			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+			 			
+ 			\draw [color=teal] (2.1,1) node[right] {$U^+$};
+ 			\draw [color=purple] (.25,1) node[below] {$U^-$};
+ 			\draw [color=blue] (2,2.5) node[above]{$H$};
+		\end{tikzpicture}
+	&
+		\begin{tikzpicture}
+			\draw [color=purple,schraffiert=purple] (3,2.5) -- (3,1.5) -- (2.5,1.5) -- (2,1) -- (2,0) -- (1,0) -- (1,1) -- (0,1) -- (0,2) -- (1,2) -- (1.5,2.5) -- (3,2.5);
+			\draw [color=teal,schraffiert=teal] (3,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (3,1.5) -- (3,2.5);
+			\draw [color=blue,ultra thick] (3,2.5) -- (3,1.5);
+			
+			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+			 			
+ 			\draw [color=teal] (3.55,2) node[right] {$U^+$};
+ 			\draw [color=purple] (.5,1) node[below]{$U^-$};
+ 			\draw [color=blue] (3,1.5) node[below]{$H$};
+		\end{tikzpicture}
+	\\
+		\begin{tikzpicture}
+	 		\draw [color=teal,schraffiert = teal] (0,1.5) -- (0,2) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,2) -- (2.5,2) -- (2,1.5) -- (0,1.5);
+ 			\draw [color=purple,schraffiert = purple] (0,1) -- (1,1) -- (1,0) -- (2,0) -- (2,1) -- (2.5,1.5) -- (3.5,1.5) -- (3.5,2) -- (2.5,2) -- (2,1.5) -- (0,1.5) -- (0,1);
+ 			\draw [color=blue, ultra thick] (0,1.5) -- (2,1.5) -- (2.5,2) -- (3.5,2);
+ 			
+ 			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+ 			
+ 			\draw [color=teal] (0.5,2.05) node[above] {$U^+$};
+ 			\draw [color=purple] (2.05,.5) node[right] {$U^-$};
+ 			\draw [color=blue] (3.55,2) node[right] {$H$};
+	 	\end{tikzpicture}
+	 &
+		\begin{tikzpicture}
+ 	 		\draw [color=teal,schraffiert = teal] (1,.5) -- (1,1) -- (0,1) -- (0,2) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,.5) -- (1,.5);
+  			\draw [color=purple,schraffiert = purple] (1,.5) -- (1,0) -- (2,0) -- (2,.5) -- (1,.5);
+  			\draw [color=blue, ultra thick] (1,.5) -- (2,.5);
+  			
+  			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+  			
+  			\draw [color=teal] (0.5,2.05) node[above] {$U^+$};
+  			\draw [color=purple] (2.05,.2) node[right] {$U^-$};
+  			\draw [color=blue] (1,.5) node[left,align=right] {$H$};
+ 	 	\end{tikzpicture}
+	   & 
+	    \begin{tikzpicture}
+   	 		\draw [color=teal,schraffiert = teal] (1.25,2.25) -- (2.25,2.25) -- (2.25,1.25) -- (2,1) -- (2,0) -- (1,0) -- (1,1) -- (0,1) -- (0,2) -- (1,2) -- (1.25,2.25);
+   			\draw [color=purple,schraffiert = purple] (1.25,2.25) -- (2.25,2.25) -- (2.25,1.25) -- (2.5,1.5) -- (3.5,1.5) -- (3.5,2.5) -- (1.5,2.5) -- (1.25,2.25);
+   			\draw [color=blue, ultra thick] (1.25,2.25) -- (2.25,2.25) -- (2.25,1.25);
+   			
+   			\draw [thick] (2,2) -- (0,2) -- (0,1) -- (2,1) -- (2,0) -- (1,0) -- (1,2) -- (1.5,2.5) -- (3.5,2.5) -- (3.5,1.5) -- (2.5,1.5) -- (2,1) -- (2,2) -- (2.5,2.5) -- (2.5,1.5);
+   			
+   			\draw [color=purple] (3.55,2) node[right] {$U^-$};
+ 			\draw [color=teal] (.5,1) node[below]{$U^+$};
+ 			\draw [color=blue] (2.25,1.25) node[right]{$H$};
+   	 	\end{tikzpicture} \\ 
+	\end{tabular} 
+\end{frame}
+
+\begin{frame}{Beispiele für Hyperebenen}
+	\begin{tikzpicture}[scale=2.5]
+		\onslide<1-5>{
+			\draw (1,2) -- (1,1);
+			\draw (2,1) -- (1,1) -- (0,0);
+			\draw (0,1) -- (1,0) -- (2,0) -- (2.5,.5);
+			\draw (2,0) -- (2.5,-.5);
+			
+			\draw (0,0) node[fill,circle,inner sep=2pt]{};
+			\draw (.5,.5) node[fill,circle,inner sep=2pt]{};
+			\draw (0,1) node[fill,circle,inner sep=2pt]{};
+			\draw (1,1) node[fill,circle,inner sep=2pt]{};
+			\draw (1,2) node[fill,circle,inner sep=2pt]{};
+			\draw (2,1) node[fill,circle,inner sep=2pt]{};
+			\draw (1,0) node[fill,circle,inner sep=2pt]{};
+			\draw (2,0) node[fill,circle,inner sep=2pt]{};
+			\draw (2.5,-.5) node[fill,circle,inner sep=2pt]{};
+			\draw (2.5,.5) node[fill,circle,inner sep=2pt]{};
+		}
+		
+		\onslide<2>{
+			\draw [color=blue] (.25,.25) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (.25,.75) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (.75,.25) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (.75,.75) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (1,1.5) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (1.5,0) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (1.5,1) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (2.25,-.25) node[fill,circle,inner sep=1.5pt]{};
+			\draw [color=blue] (2.25,.25) node[fill,circle,inner sep=1.5pt]{};
+		}
+		
+		\draw<3-5> [color=red, very thick] (1,0) -- (2,0);
+		
+		\draw<3> [color=red] (1.5,0) node[below,align=center]{$e$};
+		\draw<4-5> [color=red] (1.5,0) node[below,align=center]{$[e]_\parallel$};
+		\draw<5> [color=blue] (1.5,0) node[fill,circle,inner sep=1.5pt]{};
+		\draw<5-> [color=blue] (1.5,0) node[above,align=center]{$H(e)$};
+		
+		\onslide<6->{
+			\draw [color=purple] (1,2) -- (1,1);
+			\draw [color=purple] (2,1) -- (1,1) -- (0,0);
+			\draw [color=purple] (0,1) -- (1,0) -- (1.5,0);
+			\draw [color=teal] (1.5,0) -- (2,0) -- (2.5,.5);
+			\draw [color=teal] (2,0) -- (2.5,-.5);
+			
+			\draw [color=purple] (0,0) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (.5,.5) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (0,1) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (1,1) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (1,2) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (2,1) node[fill,circle,inner sep=2pt]{};
+			\draw [color=purple] (1,0) node[fill,circle,inner sep=2pt]{};
+			\draw [color=teal] (2,0) node[fill,circle,inner sep=2pt]{};
+			\draw [color=teal] (2.5,-.5) node[fill,circle,inner sep=2pt]{};
+			\draw [color=teal] (2.5,.5) node[fill,circle,inner sep=2pt]{};
+			\draw [color=blue] (1.5,0) node[fill,circle,inner sep=1.5pt]{};
+			
+			\draw [color=purple] (.5,.7) node[above]{$U^-$};
+			\draw [color=teal] (2.2,0) node[right]{$U^+$};			
+		}
+	\end{tikzpicture} \hspace{1cm}
+	\begin{tikzpicture}[scale=1.2]
+			\onslide<7->{
+				\draw (0,4) node[right]{$x_1$};
+				\draw (4,0) node[above]{$x_2$};
+			}
+			
+			\onslide<7-11>{
+				\draw [->,ultra thick] (-1.5,0) -- (4,0);
+				\draw [->,ultra thick] (0,-1.5) -- (0,4);
+				\foreach \x in {-1,1,2,3} {
+					\draw (-1.5,\x) -- (3.5,\x);
+					\draw (\x,-1.5) -- (\x,3.5);
+				}
+			}
+			
+			\onslide<8>{
+				\draw [color=red, very thick] (1,1) -- (2,1);
+				\draw [color=red] (2,1) node[align=left,anchor=north west]{$e$};
+			}
+			
+			\onslide<9-11>{
+				\foreach \x in {-1,0,...,3} {
+					\draw [very thick, color=red] (1,\x) -- (2,\x);
+				}
+				\draw [color=red] (2,1) node[align=left,anchor=north west]{$[e]_\parallel$};
+			}
+			
+			\onslide<10>{
+				\foreach \x in {0,...,3} {
+					\draw [dashed, very thick, color=blue] (\x-.5,-1.5) -- (\x-.5,3.5);
+					\draw [dashed, very thick, color=blue] (-1.5,\x-.5) -- (3.5,\x-.5);
+				}
+			}
+			
+			\onslide<11>{
+				\draw [very thick, color=blue] (1.5,3.5) -- (1.5,-1.5) node[below]{$H(e)$};
+			}
+			
+			\onslide<12>{
+				\path [schraffiert=purple] (-1.5,-1.5) rectangle (1.5,3.5);
+				\path [schraffiert=teal] (1.5,3.5) rectangle (3.5,-1.5);
+				
+				\draw [color=purple] (-.5,-1.5) node[below]{$U^-$};
+				\draw [color=teal] (3,-1.5) node[below]{$U^+$};
+				
+				\draw [->,ultra thick] (-1.5,0) -- (4,0);
+				\draw [->,ultra thick] (0,-1.5) -- (0,4);
+				\foreach \x in {-1,1,2,3} {
+					\draw (-1.5,\x) -- (3.5,\x);
+					\draw (\x,-1.5) -- (\x,3.5);
+				}
+				
+				\draw [color=red, ultra thick] (1,1) -- (2,1);
+				\draw [color=red] (2,1) node[align=left,anchor=north west]{$e$};
+				
+				\draw [very thick, color=blue] (1.5,3.5) -- (1.5,-1.5) node[below]{$H(e)$};
+			}
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[c]{Mehr über kubische Komplexe}
+	$(X,d)$: wegzusammenhängender kubischer Komplex
+	\begin{itemize}
+		\item Wann ist $(X,d)$ vollständig? \\
+			$\rightarrow$ wenn $(X,d)$ endlich dimensional oder lokal endlich ist.
+		\item Wann ist $(X,d)$ $\cat$? \\
+			$\rightarrow$ Gromov's link condition
+	\end{itemize}
+	\vspace*{2cm}
+	Mehr dazu: \\
+	\qquad P. Schwer: Lecture Notes on $\cat$ Cubical Complexes
+\end{frame}
+\end{document}

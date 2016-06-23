@@ -1,0 +1,93 @@
+%!TEX root = Beamer.tex
+% -- Author: Phil Steinhorst, p.st@wwu.de
+\usetheme{Boadilla}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[square]
+
+\title{\shorttitel}
+\author{\verfasser}
+
+\defbeamertemplate*{title page}{customized}[1][]
+{
+	\begin{center}
+	\begin{minipage}{0.4\textwidth}
+	\begin{flushleft}
+	\hspace*{1em}\includegraphics[height=1cm,keepaspectratio]{../img/wwulogo.pdf}
+	\end{flushleft}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.4\textwidth}
+	\begin{flushright}
+	\vspace*{0.3cm}
+	\includegraphics[height=0.8cm,keepaspectratio]{../img/fb10logo.pdf} \hspace*{1em}
+	\end{flushright}
+	\end{minipage}
+  
+	\vfill
+   
+	\textcolor{structure}{{\LARGE \titel}}\par
+	\vspace*{0.3cm}
+	\subtitel\par
+	\vspace*{1cm}
+	\verfasser \par
+	{\tt {\footnotesize \authormail}}\par
+	\vspace*{0.3cm}
+	{\footnotesize \datum}\par
+  \end{center}
+}
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{external}
+\tikzset{>=latex}
+\usetikzlibrary{shapes,arrows,intersections}
+\usetikzlibrary{calc,3d}
+\usetikzlibrary{decorations.pathreplacing,decorations.markings}
+\usetikzlibrary{angles}
+\tikzset{
+  every picture/.append style={
+    execute at begin picture={\shorthandoff{"}},
+    execute at end picture={\shorthandon{"}}
+  }
+}
+\usetikzlibrary{quotes}
+\usetikzlibrary{patterns}
+\tikzset{
+	schraffiert/.style={pattern=north west lines,pattern color=#1},
+	schraffiert/.default=black
+}
+\usepackage{pgfplots}
+\usepackage{mathtools} 					
+\mathtoolsset{showonlyrefs, centercolon}
+\usepackage{wasysym}
+\usepackage{amssymb} 		
+\usepackage{latexsym} 		
+\usepackage{stmaryrd} 		
+\usepackage{nicefrac} 		
+\usepackage{cancel} 		
+\usepackage{extarrows}		
+\usepackage{mathdots}
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\mathds}[1]{\mathbb{#1}} 	
+\def\mathul#1#2{\color{#1}\underline{{\color{black}#2}}\color{black}}
+\usepackage{mathspec} 				
+\usepackage{polyglossia} 			
+\setmainlanguage[spelling=new,babelshorthands=false]{german}
+\newcommand\glqq{"}
+\newcommand\grqq{"}
+\setallmonofonts[Scale=MatchLowercase, ItalicFont={*}]{Consolas} 
+\usepackage{xltxtra}
+\usepackage{fontawesome}
+\usepackage[german=quotes]{csquotes}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{stackrel}
+\usepackage{ifthen}
+\usepackage{multicol}
+\usepackage[normalem]{ulem}
+\setlength{\ULdepth}{1.8pt}
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{}}} 
+\usepackage{ellipsis}									
+\input{MathCmds.tex}
